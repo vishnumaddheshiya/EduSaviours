@@ -31,7 +31,7 @@ The model uses 35 key features including:
 1. **Clone the repository**
 ```bash
 git clone <repository-url>
-cd dropout-prediction-system
+cd EduSaviours
 ```
 
 2. **Create virtual environment**
@@ -42,7 +42,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. **Install dependencies**
 ```bash
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 
 4. **Initialize database**
