@@ -1,0 +1,1394 @@
+{% extends "base.html" %}
+
+{% block title %}University Dashboard - EduTrack AI{% endblock %}
+
+{% block content %}
+<div id="universityApp" class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="p-3">
+                    <h5 class="text-center text-success">Admin Portal</h5>
+                    <p class="text-muted mb-0 text-danger">Administrative Dashboard</p>
+                </div>
+                
+                <!-- Import Summary -->
+                <div v-if="importSummary" class="alert alert-info d-flex align-items-center" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <div>
+                        <strong>Import complete:</strong>
+                        Created <span v-text="importSummary.created">0</span>, Updated <span v-text="importSummary.updated">0</span>, Total <span v-text="importSummary.total">0</span>.
+                    </div>
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'overview' }" @click="activeTab = 'overview'">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Overview
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'students' }" @click="activeTab = 'students'">
+                    <i class="fas fa-users me-2"></i>
+                    Students
+                    <span v-if="highRiskCount > 0" class="notification-badge" v-text="highRiskCount">0</span>
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'analytics' }" @click="activeTab = 'analytics'">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Analytics
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'notifications' }" @click="activeTab = 'notifications'">
+                    <i class="fas fa-bell me-2"></i>
+                    Notifications
+                    <span v-if="unreadNotifications > 0" class="notification-badge" v-text="unreadNotifications">0</span>
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'reports' }" @click="activeTab = 'reports'">
+                    <i class="fas fa-file-alt me-2"></i>
+                    Reports
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <!-- Overview Tab -->
+            <div v-if="activeTab === 'overview'">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="text-center text-success">Dashboard Overview</h2>
+                    <div>
+                        <button class="btn btn-outline-primary me-2" @click="exportData">
+                            <i class="fas fa-download me-2"></i>
+                            Export Data
+                        </button>
+                        <button class="btn btn-custom" @click="refreshData">
+                            <i class="fas fa-sync-alt me-2"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Key Metrics -->
+                <div class="row mb-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card">
+                            <div class="stats-number text-primary" v-text="analytics ? analytics.total_students : 0">0</div>
+                            <div class="stats-label">Total Students</div>
+                            <small class="text-success">
+                                <i class="fas fa-arrow-up"></i>
+                                +5.2% this month
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card">
+                            <div class="stats-number text-danger" v-text="analytics ? analytics.high_risk : 0">0</div>
+                            <div class="stats-label">High Risk Students</div>
+                            <small class="text-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Requires immediate attention
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card">
+                            <div class="stats-number text-success"><span v-text="analytics ? analytics.success_rate : 0">0</span>%</div>
+                            <div class="stats-label">Success Rate</div>
+                            <small class="text-success">
+                                <i class="fas fa-arrow-up"></i>
+                                +2.1% improvement
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card">
+                            <div class="stats-number text-info" v-text="analytics ? analytics.active_interventions : 0">0</div>
+                            <div class="stats-label">Active Interventions</div>
+                            <small class="text-info">
+                                <i class="fas fa-clock"></i>
+                                Last 30 days
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Alerts -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5>Recent High-Risk Alerts</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Name</th>
+                                        <th>Risk Score</th>
+                                        <th>Category</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="student in highRiskStudents" :key="student.id">
+                                        <td v-text="student.student_id">ID</td>
+                                        <td v-text="student.name">Name</td>
+                                        <td><span v-text="(student.risk_score * 100).toFixed(1)">0</span>%</td>
+                                        <td>
+                                            <span :class="getRiskClass(student.risk_category)" v-text="student.risk_category">Unknown</span>
+                                        </td>
+                                        <td v-text="formatDate(student.last_prediction_date)">N/A</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" @click="viewStudent(student)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-warning" @click="contactStudent(student)">
+                                                <i class="fas fa-envelope"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Students Tab -->
+            <div v-if="activeTab === 'students'">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Student Management</h2>
+                    <div>
+                        <button class="btn btn-outline-primary me-2" @click="showImportModal = true" :disabled="importing">
+                            <i class="fas fa-file-upload me-2"></i>
+                            <span v-text="importing ? 'Importing...' : 'Import CSV'">Import CSV</span>
+                        </button>
+                        <input id="csvInput" type="file" accept=".csv" class="d-none" @change="handleFileSelection">
+                        <button class="btn btn-outline-success me-2" @click="showAddStudent = true">
+                            <i class="fas fa-plus me-2"></i>
+                            Add Student
+                        </button>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fas fa-filter me-2"></i>
+                                Filter: <span v-text="currentFilter">All</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" @click="filterStudents('All')">All Students</a></li>
+                                <li><a class="dropdown-item" href="#" @click="filterStudents('High')">High Risk</a></li>
+                                <li><a class="dropdown-item" href="#" @click="filterStudents('Medium')">Medium Risk</a></li>
+                                <li><a class="dropdown-item" href="#" @click="filterStudents('Low')">Low Risk</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Search students by name or ID..."
+                                v-model="searchQuery"
+                            >
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Students Table -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Name</th>
+                                        <th>Risk Score</th>
+                                        <th>Category</th>
+                                        <th>Age</th>
+                                        <th>Scholarship</th>
+                                        <th>Last Assessment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="student in filteredStudents" :key="student.id">
+                                        <td v-text="student.student_id">ID</td>
+                                        <td v-text="student.name">Name</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="progress me-2" style="width: 60px; height: 8px;">
+                                                    <div 
+                                                        class="progress-bar" 
+                                                        :class="getProgressBarClass(student.risk_category)"
+                                                        :style="{ width: (student.risk_score * 100) + '%' }"
+                                                    ></div>
+                                                </div>
+                                                <span v-text="(student.risk_score * 100).toFixed(1)">0</span>%
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span :class="getRiskClass(student.risk_category)" v-text="student.risk_category">Unknown</span>
+                                        </td>
+                                        <td v-text="student.age_at_enrollment || 'N/A'">N/A</td>
+                                        <td>
+                                            <i :class="student.scholarship_holder ? 'fas fa-check text-success' : 'fas fa-times text-muted'"></i>
+                                        </td>
+                                        <td v-text="formatDate(student.last_prediction_date)">N/A</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-primary" @click="viewStudent(student)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-outline-warning" @click="contactStudent(student)">
+                                                    <i class="fas fa-envelope"></i>
+                                                </button>
+                                                <button class="btn btn-outline-info" @click="updatePrediction(student)">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytics Tab -->
+            <div v-if="activeTab === 'analytics'">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Advanced Analytics</h2>
+                    <button class="btn btn-outline-primary" @click="renderCharts">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Refresh Charts
+                    </button>
+                </div>
+                
+                <!-- Key Metrics Row -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number text-primary" v-text="students.length">0</div>
+                            <div class="stats-label">Total Students</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number text-danger" v-text="highRiskCount">0</div>
+                            <div class="stats-label">High Risk</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number text-warning" v-text="mediumRiskCount">0</div>
+                            <div class="stats-label">Medium Risk</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number text-success" v-text="lowRiskCount">0</div>
+                            <div class="stats-label">Low Risk</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 1 -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Risk Category Distribution</h5>
+                                <div class="chart-container-small">
+                                    <canvas id="riskCategoryChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Risk Score Distribution</h5>
+                                <div class="chart-container-small">
+                                    <canvas id="riskScoreChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 2 -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Age Distribution</h5>
+                                <div class="chart-container-small">
+                                    <canvas id="ageDistributionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Scholarship vs Risk</h5>
+                                <div class="chart-container-small">
+                                    <canvas id="scholarshipRiskChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 3 -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Risk Trends Over Time</h5>
+                                <div class="chart-container-large">
+                                    <canvas id="riskTrendsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detailed Statistics -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Risk Statistics</h5>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>Average Risk Score:</td>
+                                        <td><strong v-text="averageRiskScore">0%</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Highest Risk Score:</td>
+                                        <td><strong v-text="maxRiskScore">0%</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Students Above 70% Risk:</td>
+                                        <td><strong v-text="criticalRiskCount">0</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scholarship Recipients:</td>
+                                        <td><strong v-text="scholarshipCount">0</strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Recommendations</h5>
+                                <div class="alert alert-info" v-if="highRiskCount > 0">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <span v-text="highRiskCount">0</span> students need immediate attention
+                                </div>
+                                <div class="alert alert-warning" v-if="mediumRiskCount > 0">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <span v-text="mediumRiskCount">0</span> students should be monitored closely
+                                </div>
+                                <div class="alert alert-success" v-if="lowRiskCount > 0">
+                                    <i class="fas fa-check me-2"></i>
+                                    <span v-text="lowRiskCount">0</span> students are performing well
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notifications Tab -->
+            <div v-if="activeTab === 'notifications'">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Notifications & Alerts</h2>
+                    <button class="btn btn-outline-secondary" @click="markAllAsRead">
+                        <i class="fas fa-check-double me-2"></i>
+                        Mark All as Read
+                    </button>
+                </div>
+                
+                <div v-if="notifications.length > 0">
+                    <div class="card border-0 shadow-sm mb-3" v-for="notification in notifications" :key="notification.id">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <i class="fas fa-exclamation-triangle text-warning fa-lg" v-if="notification.type === 'high_risk_alert'"></i>
+                                    <i class="fas fa-info-circle text-info fa-lg" v-else></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1" v-text="getNotificationTitle(notification.type)">Notification</h6>
+                                    <p class="mb-2" v-text="notification.message">Message</p>
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>
+                                        <span v-text="formatDate(notification.created_at)">Date</span>
+                                    </small>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-primary" @click="handleNotification(notification)">
+                                        Action
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div v-else class="text-center py-5">
+                    <i class="fas fa-bell-slash fa-3x text-muted mb-3"></i>
+                    <h4>No New Notifications</h4>
+                    <p class="text-muted">All caught up! Check back later for new alerts.</p>
+                </div>
+            </div>
+            
+            <!-- Reports Tab -->
+            <div v-if="activeTab === 'reports'">
+                <h2 class="mb-4">Reports & Export</h2>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4" v-for="report in availableReports" :key="report.id">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body text-center">
+                                <i :class="report.icon + ' fa-3x text-primary mb-3'"></i>
+                                <h5 v-text="report.title">Report Title</h5>
+                                <p class="text-muted" v-text="report.description">Description</p>
+                                <button class="btn btn-custom" @click="generateReport(report.type)">
+                                    <i class="fas fa-download me-2"></i>
+                                    Generate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Import Options Modal -->
+    <div class="modal fade" :class="{ show: showImportModal }" :style="{ display: showImportModal ? 'block' : 'none' }" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-upload me-2"></i>
+                        Import Student Data
+                    </h5>
+                    <button type="button" class="btn-close" @click="showImportModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Select CSV File</label>
+                        <input type="file" class="form-control" accept=".csv" @change="handleFileSelection" ref="fileInput">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="replaceExisting" id="replaceExisting">
+                            <label class="form-check-label" for="replaceExisting">
+                                <strong>Replace all existing data</strong>
+                            </label>
+                        </div>
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            <span v-if="replaceExisting">This will delete all current student records and replace them with the imported data.</span>
+                            <span v-else>This will update existing students and add new ones from the CSV file.</span>
+                        </small>
+                    </div>
+                    
+                    <div v-if="selectedFile" class="alert alert-info">
+                        <i class="fas fa-file me-2"></i>
+                        <strong>Selected file:</strong> <span v-text="selectedFile ? selectedFile.name : ''"></span>
+                        <br>
+                        <small>Size: <span v-text="selectedFile ? (selectedFile.size / 1024).toFixed(1) : '0'"></span> KB</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click="showImportModal = false">Cancel</button>
+                    <button type="button" class="btn btn-primary" @click="performImport" :disabled="!selectedFile || importing">
+                        <span v-if="importing">
+                            <i class="fas fa-spinner fa-spin me-2"></i>
+                            Importing...
+                        </span>
+                        <span v-else>
+                            <i class="fas fa-upload me-2"></i>
+                            Import Data
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Backdrop for Import -->
+    <div v-if="showImportModal" class="modal-backdrop fade show" @click="showImportModal = false"></div>
+    
+    <!-- Student Details Modal -->
+    <div class="modal fade" id="studentDetailsModal" tabindex="-1" aria-labelledby="studentDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="studentDetailsModalLabel">
+                        <i class="fas fa-user-graduate me-2"></i>
+                        Student Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" @click="closeModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            <div class="student-avatar mb-3">
+                                <i class="fas fa-user-graduate fa-5x text-primary"></i>
+                            </div>
+                            <h5 class="h5" v-text="selectedStudent ? selectedStudent.name : 'Student Name'">Student Name</h5>
+                            <span class="badge" :class="selectedStudent ? getRiskClass(selectedStudent.risk_category) : ''" v-text="selectedStudent ? selectedStudent.risk_category + ' Risk' : 'Risk'">Risk</span>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table table-sm table-borderless">
+                                        <tr>
+                                            <th>Student ID:</th>
+                                            <td v-text="selectedStudent ? selectedStudent.student_id : 'ID'">ID</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Risk Score:</th>
+                                            <td>
+                                                <div class="progress" style="height: 8px;">
+                                                    <div class="progress-bar" :class="selectedStudent ? getProgressBarClass(selectedStudent.risk_category) : ''" 
+                                                         :style="{ width: selectedStudent ? (selectedStudent.risk_score * 100) + '%' : '0%' }"
+                                                         role="progressbar"></div>
+                                                </div>
+                                                <small class="text-muted" v-text="selectedStudent ? (selectedStudent.risk_score * 100).toFixed(1) + '%' : '0%'">0%</small>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Age:</th>
+                                            <td v-text="selectedStudent ? (selectedStudent.age_at_enrollment || 'N/A') : 'N/A'">N/A</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gender:</th>
+                                            <td v-text="selectedStudent ? (selectedStudent.gender === 1 ? 'Male' : 'Female') : 'N/A'">N/A</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-sm table-borderless">
+                                        <tr>
+                                            <th>Scholarship:</th>
+                                            <td>
+                                                <span v-if="selectedStudent && selectedStudent.scholarship_holder" class="badge bg-success">Yes</span>
+                                                <span v-else class="badge bg-secondary">No</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tuition Fees:</th>
+                                            <td>
+                                                <span v-if="selectedStudent && selectedStudent.tuition_fees_up_to_date" class="badge bg-success">Up to Date</span>
+                                                <span v-else class="badge bg-danger">Outstanding</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last Updated:</th>
+                                            <td v-text="selectedStudent ? formatDate(selectedStudent.last_prediction_date) : 'N/A'">N/A</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Academic Performance -->
+                            <div class="mt-4">
+                                <h6 class="text-primary mb-3">Academic Performance</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">1st Semester</small>
+                                        <div class="mb-2">
+                                            <strong>Grade:</strong> <span v-text="selectedStudent ? (selectedStudent.curricular_units_1st_sem_grade || 'N/A') : 'N/A'">N/A</span>/20
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong>Approved:</strong> <span v-text="selectedStudent ? (selectedStudent.curricular_units_1st_sem_approved || 0) : 0">0</span> units
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted">2nd Semester</small>
+                                        <div class="mb-2">
+                                            <strong>Grade:</strong> <span v-text="selectedStudent ? (selectedStudent.curricular_units_2nd_sem_grade || 'N/A') : 'N/A'">N/A</span>/20
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong>Approved:</strong> 
+                                            <span v-text="selectedStudent ? (selectedStudent.curricular_units_2nd_sem_approved || 0) + ' units' : '0 units'">0 units</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click="closeModal">
+                        <i class="fas fa-times me-2"></i>
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-warning" @click="contactStudent(selectedStudent)">
+                        <i class="fas fa-envelope me-2"></i>
+                        Contact Student
+                    </button>
+                    <button type="button" class="btn btn-info" @click="updatePrediction(selectedStudent)">
+                        <i class="fas fa-sync-alt me-2"></i>
+                        Update Prediction
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Server data injection -->
+<script id="server-data" type="application/json">
+{{ (analytics or {})|tojson|safe }}
+</script>
+
+<script>
+// Pass server data to JavaScript
+window.serverData = {
+    analytics: JSON.parse(document.getElementById('server-data').textContent)
+};
+</script>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            activeTab: 'overview',
+            analytics: window.serverData.analytics,
+            students: [],
+            notifications: [],
+            highRiskStudents: [],
+            searchQuery: '',
+            currentFilter: 'All',
+            showAddStudent: false,
+            importing: false,
+            importSummary: null,
+            showImportModal: false,
+            replaceExisting: false,
+            selectedFile: null,
+            selectedStudent: null,
+            studentDetailsModal: null,
+            availableReports: [
+                {
+                    id: 1,
+                    title: 'Risk Assessment Report',
+                    description: 'Comprehensive analysis of student risk factors',
+                    icon: 'fas fa-chart-line',
+                    type: 'risk_assessment'
+                },
+                {
+                    id: 2,
+                    title: 'Intervention Report',
+                    description: 'Summary of counseling interventions and outcomes',
+                    icon: 'fas fa-users',
+                    type: 'intervention'
+                },
+                {
+                    id: 3,
+                    title: 'Academic Performance',
+                    description: 'Student academic performance trends',
+                    icon: 'fas fa-graduation-cap',
+                    type: 'academic'
+                }
+            ]
+        }
+    },
+    
+    computed: {
+        filteredStudents() {
+            let filtered = this.students;
+            
+            if (this.currentFilter !== 'All') {
+                filtered = filtered.filter(s => s.risk_category === this.currentFilter);
+            }
+            
+            if (this.searchQuery) {
+                const query = this.searchQuery.toLowerCase();
+                filtered = filtered.filter(s => 
+                    s.name.toLowerCase().includes(query) || 
+                    s.student_id.toLowerCase().includes(query)
+                );
+            }
+            
+            return filtered;
+        },
+        
+        highRiskCount() {
+            return this.students.filter(s => s.risk_category === 'High').length;
+        },
+        
+        mediumRiskCount() {
+            return this.students.filter(s => s.risk_category === 'Medium').length;
+        },
+        
+        lowRiskCount() {
+            return this.students.filter(s => s.risk_category === 'Low').length;
+        },
+        
+        averageRiskScore() {
+            if (this.students.length === 0) return '0%';
+            const avg = this.students.reduce((sum, s) => sum + (s.risk_score || 0), 0) / this.students.length;
+            return (avg * 100).toFixed(1) + '%';
+        },
+        
+        maxRiskScore() {
+            if (this.students.length === 0) return '0%';
+            const max = Math.max(...this.students.map(s => s.risk_score || 0));
+            return (max * 100).toFixed(1) + '%';
+        },
+        
+        criticalRiskCount() {
+            return this.students.filter(s => (s.risk_score || 0) >= 0.7).length;
+        },
+        
+        scholarshipCount() {
+            return this.students.filter(s => s.scholarship_holder === 1).length;
+        },
+        
+        unreadNotifications() {
+            return this.notifications.length;
+        }
+    },
+    
+    watch: {
+        activeTab(newTab) {
+            if (newTab === 'analytics' && this.students.length > 0) {
+                this.$nextTick(() => {
+                    setTimeout(() => this.renderCharts(), 200);
+                });
+            }
+        }
+    },
+    
+    mounted() {
+        console.log('Vue app mounted');
+        this.loadData();
+        const modalElement = document.getElementById('studentDetailsModal');
+        console.log('Modal element found:', modalElement);
+        if (modalElement) {
+            this.studentDetailsModal = new bootstrap.Modal(modalElement);
+            console.log('Bootstrap modal initialized:', this.studentDetailsModal);
+        } else {
+            console.error('studentDetailsModal element not found during mount');
+        }
+    },
+    
+    methods: {
+        async loadData() {
+            console.log('Loading data from API...');
+            try {
+                // Add timestamp to prevent caching
+                const timestamp = new Date().getTime();
+                const response = await fetch(`/api/students?t=${timestamp}`);
+                console.log('API response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success && data.students && data.students.length > 0) {
+                        console.log('Loaded student data:', data.students);
+                        console.log('First student structure:', data.students[0]);
+                        this.students = data.students;
+                        this.highRiskStudents = this.students.filter(s => s.risk_category === 'High');
+                        // Render charts after data is loaded and DOM is updated
+                        this.$nextTick(() => {
+                            setTimeout(() => this.renderCharts(), 100);
+                        });
+                    } else {
+                        // Use sample data if no real data is available
+                        this.loadSampleData();
+                    }
+                } else {
+                    // Use sample data if API fails
+                    this.loadSampleData();
+                }
+                
+                const notifResponse = await fetch('/api/notifications');
+                if (notifResponse.ok) {
+                    const notifData = await notifResponse.json();
+                    if (notifData.success) {
+                        this.notifications = notifData.notifications;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+                this.loadSampleData();
+            }
+        },
+        
+        loadSampleData() {
+            console.log('Loading sample data for charts');
+            this.students = [
+                {
+                    id: 1,
+                    student_id: 'STU001',
+                    name: 'Alice Johnson',
+                    risk_score: 0.85,
+                    risk_category: 'High',
+                    age_at_enrollment: 19,
+                    gender: 0,
+                    scholarship_holder: 0,
+                    tuition_fees_up_to_date: 1,
+                    curricular_units_1st_sem_grade: 12.5,
+                    curricular_units_1st_sem_approved: 4,
+                    curricular_units_2nd_sem_grade: 11.8,
+                    curricular_units_2nd_sem_approved: 3,
+                    last_prediction_date: '2024-01-15'
+                },
+                {
+                    id: 2,
+                    student_id: 'STU002',
+                    name: 'Bob Smith',
+                    risk_score: 0.45,
+                    risk_category: 'Medium',
+                    age_at_enrollment: 20,
+                    gender: 1,
+                    scholarship_holder: 1,
+                    tuition_fees_up_to_date: 1,
+                    curricular_units_1st_sem_grade: 14.2,
+                    curricular_units_1st_sem_approved: 5,
+                    curricular_units_2nd_sem_grade: 13.8,
+                    curricular_units_2nd_sem_approved: 5,
+                    last_prediction_date: '2024-01-20'
+                },
+                {
+                    id: 3,
+                    student_id: 'STU003',
+                    name: 'Carol Davis',
+                    risk_score: 0.25,
+                    risk_category: 'Low',
+                    age_at_enrollment: 18,
+                    gender: 0,
+                    scholarship_holder: 1,
+                    tuition_fees_up_to_date: 1,
+                    curricular_units_1st_sem_grade: 16.5,
+                    curricular_units_1st_sem_approved: 6,
+                    curricular_units_2nd_sem_grade: 15.9,
+                    curricular_units_2nd_sem_approved: 6,
+                    last_prediction_date: '2024-01-18'
+                },
+                {
+                    id: 4,
+                    student_id: 'STU004',
+                    name: 'David Wilson',
+                    risk_score: 0.75,
+                    risk_category: 'High',
+                    age_at_enrollment: 22,
+                    gender: 1,
+                    scholarship_holder: 0,
+                    tuition_fees_up_to_date: 0,
+                    curricular_units_1st_sem_grade: 10.2,
+                    curricular_units_1st_sem_approved: 3,
+                    curricular_units_2nd_sem_grade: 9.8,
+                    curricular_units_2nd_sem_approved: 2,
+                    last_prediction_date: '2024-01-22'
+                },
+                {
+                    id: 5,
+                    student_id: 'STU005',
+                    name: 'Emma Brown',
+                    risk_score: 0.35,
+                    risk_category: 'Medium',
+                    age_at_enrollment: 19,
+                    gender: 0,
+                    scholarship_holder: 1,
+                    tuition_fees_up_to_date: 1,
+                    curricular_units_1st_sem_grade: 13.7,
+                    curricular_units_1st_sem_approved: 4,
+                    curricular_units_2nd_sem_grade: 14.1,
+                    curricular_units_2nd_sem_approved: 5,
+                    last_prediction_date: '2024-01-25'
+                }
+            ];
+            
+            this.highRiskStudents = this.students.filter(s => s.risk_category === 'High');
+            
+            // Render charts with sample data
+            this.$nextTick(() => {
+                setTimeout(() => this.renderCharts(), 100);
+            });
+        },
+        renderCharts() {
+            console.log('Rendering charts with', this.students.length, 'students');
+            if (this.students.length === 0) {
+                console.log('No students data, skipping chart rendering');
+                return;
+            }
+
+            // Clear any existing charts
+            Object.values(Chart.instances).forEach(chart => {
+                if (chart) chart.destroy();
+            });
+
+            // Risk Category Chart
+            const catCtx = document.getElementById('riskCategoryChart');
+            console.log('Risk category chart element:', catCtx);
+            if (catCtx) {
+                new Chart(catCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['High Risk', 'Medium Risk', 'Low Risk'],
+                        datasets: [{
+                            data: [this.highRiskCount, this.mediumRiskCount, this.lowRiskCount],
+                            backgroundColor: ['#dc3545', '#ffc107', '#28a745'],
+                            borderWidth: 2,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false
+                        },
+                        plugins: { 
+                            legend: { position: 'bottom' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((context.parsed * 100) / total).toFixed(1);
+                                        return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Risk Score Distribution
+            const scoreCtx = document.getElementById('riskScoreChart');
+            if (scoreCtx) {
+                new Chart(scoreCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'],
+                        datasets: [{
+                            label: 'Number of Students',
+                            data: [
+                                this.students.filter(s => (s.risk_score || 0) < 0.2).length,
+                                this.students.filter(s => (s.risk_score || 0) >= 0.2 && (s.risk_score || 0) < 0.4).length,
+                                this.students.filter(s => (s.risk_score || 0) >= 0.4 && (s.risk_score || 0) < 0.6).length,
+                                this.students.filter(s => (s.risk_score || 0) >= 0.6 && (s.risk_score || 0) < 0.8).length,
+                                this.students.filter(s => (s.risk_score || 0) >= 0.8).length
+                            ],
+                            backgroundColor: ['#28a745', '#17a2b8', '#ffc107', '#fd7e14', '#dc3545']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false
+                        },
+                        scales: { 
+                            y: { beginAtZero: true },
+                            x: { title: { display: true, text: 'Risk Score Range' } }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Age Distribution Chart
+            const ageCtx = document.getElementById('ageDistributionChart');
+            if (ageCtx) {
+                const ageGroups = {
+                    '16-18': this.students.filter(s => (s.age_at_enrollment || 0) >= 16 && (s.age_at_enrollment || 0) <= 18).length,
+                    '19-21': this.students.filter(s => (s.age_at_enrollment || 0) >= 19 && (s.age_at_enrollment || 0) <= 21).length,
+                    '22-24': this.students.filter(s => (s.age_at_enrollment || 0) >= 22 && (s.age_at_enrollment || 0) <= 24).length,
+                    '25+': this.students.filter(s => (s.age_at_enrollment || 0) >= 25).length
+                };
+
+                new Chart(ageCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(ageGroups),
+                        datasets: [{
+                            label: 'Students',
+                            data: Object.values(ageGroups),
+                            backgroundColor: '#667eea',
+                            borderColor: '#5a67d8',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            // Scholarship vs Risk Chart
+            const scholarshipCtx = document.getElementById('scholarshipRiskChart');
+            if (scholarshipCtx) {
+                const scholarshipData = {
+                    'High Risk (No Scholarship)': this.students.filter(s => s.risk_category === 'High' && s.scholarship_holder === 0).length,
+                    'High Risk (Scholarship)': this.students.filter(s => s.risk_category === 'High' && s.scholarship_holder === 1).length,
+                    'Medium Risk (No Scholarship)': this.students.filter(s => s.risk_category === 'Medium' && s.scholarship_holder === 0).length,
+                    'Medium Risk (Scholarship)': this.students.filter(s => s.risk_category === 'Medium' && s.scholarship_holder === 1).length,
+                    'Low Risk (No Scholarship)': this.students.filter(s => s.risk_category === 'Low' && s.scholarship_holder === 0).length,
+                    'Low Risk (Scholarship)': this.students.filter(s => s.risk_category === 'Low' && s.scholarship_holder === 1).length
+                };
+
+                new Chart(scholarshipCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['High Risk', 'Medium Risk', 'Low Risk'],
+                        datasets: [{
+                            label: 'No Scholarship',
+                            data: [
+                                scholarshipData['High Risk (No Scholarship)'],
+                                scholarshipData['Medium Risk (No Scholarship)'],
+                                scholarshipData['Low Risk (No Scholarship)']
+                            ],
+                            backgroundColor: '#ffc107'
+                        }, {
+                            label: 'With Scholarship',
+                            data: [
+                                scholarshipData['High Risk (Scholarship)'],
+                                scholarshipData['Medium Risk (Scholarship)'],
+                                scholarshipData['Low Risk (Scholarship)']
+                            ],
+                            backgroundColor: '#28a745'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // Risk Trends Chart (simulated data)
+            const trendsCtx = document.getElementById('riskTrendsChart');
+            if (trendsCtx) {
+                new Chart(trendsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'High Risk',
+                            data: [
+                                Math.max(0, this.highRiskCount + Math.floor(Math.random() * 10) - 5),
+                                Math.max(0, this.highRiskCount + Math.floor(Math.random() * 10) - 5),
+                                Math.max(0, this.highRiskCount + Math.floor(Math.random() * 10) - 5),
+                                Math.max(0, this.highRiskCount + Math.floor(Math.random() * 10) - 5),
+                                Math.max(0, this.highRiskCount + Math.floor(Math.random() * 10) - 5),
+                                this.highRiskCount
+                            ],
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Medium Risk',
+                            data: [
+                                Math.max(0, this.mediumRiskCount + Math.floor(Math.random() * 15) - 7),
+                                Math.max(0, this.mediumRiskCount + Math.floor(Math.random() * 15) - 7),
+                                Math.max(0, this.mediumRiskCount + Math.floor(Math.random() * 15) - 7),
+                                Math.max(0, this.mediumRiskCount + Math.floor(Math.random() * 15) - 7),
+                                Math.max(0, this.mediumRiskCount + Math.floor(Math.random() * 15) - 7),
+                                this.mediumRiskCount
+                            ],
+                            borderColor: '#ffc107',
+                            backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Low Risk',
+                            data: [
+                                Math.max(0, this.lowRiskCount + Math.floor(Math.random() * 20) - 10),
+                                Math.max(0, this.lowRiskCount + Math.floor(Math.random() * 20) - 10),
+                                Math.max(0, this.lowRiskCount + Math.floor(Math.random() * 20) - 10),
+                                Math.max(0, this.lowRiskCount + Math.floor(Math.random() * 20) - 10),
+                                Math.max(0, this.lowRiskCount + Math.floor(Math.random() * 20) - 10),
+                                this.lowRiskCount
+                            ],
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' }
+                        },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+        },
+        
+        refreshData() {
+            this.loadData();
+        },
+        
+        filterStudents(filter) {
+            this.currentFilter = filter;
+        },
+        
+        viewStudent(student) {
+            console.log('viewStudent called with:', student);
+            this.selectedStudent = student;
+            console.log('selectedStudent set to:', this.selectedStudent);
+            
+            // Try multiple methods to show the modal
+            const modalElement = document.getElementById('studentDetailsModal');
+            console.log('Modal element:', modalElement);
+            
+            if (modalElement) {
+                // Method 1: Use existing Bootstrap modal instance
+                if (this.studentDetailsModal) {
+                    console.log('Using existing modal instance');
+                    this.studentDetailsModal.show();
+                } else {
+                    console.log('Creating new modal instance');
+                    try {
+                        this.studentDetailsModal = new bootstrap.Modal(modalElement);
+                        this.studentDetailsModal.show();
+                    } catch (error) {
+                        console.error('Error creating Bootstrap modal:', error);
+                        // Method 2: Fallback - manually show modal
+                        modalElement.classList.add('show');
+                        modalElement.style.display = 'block';
+                        document.body.classList.add('modal-open');
+                        
+                        // Add backdrop
+                        const backdrop = document.createElement('div');
+                        backdrop.className = 'modal-backdrop fade show';
+                        backdrop.id = 'modal-backdrop';
+                        document.body.appendChild(backdrop);
+                    }
+                }
+            } else {
+                console.error('Modal element not found in DOM');
+                alert('Modal not found - showing student details in alert: ' + JSON.stringify(student, null, 2));
+            }
+        },
+        
+        contactStudent(student) {
+            alert(`Contacting ${student.name} via email`);
+        },
+        
+        updatePrediction(student) {
+            alert(`Updating prediction for ${student.name}`);
+        },
+        
+        closeModal() {
+            const modalElement = document.getElementById('studentDetailsModal');
+            if (modalElement) {
+                if (this.studentDetailsModal) {
+                    this.studentDetailsModal.hide();
+                } else {
+                    // Manual close
+                    modalElement.classList.remove('show');
+                    modalElement.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    
+                    // Remove backdrop
+                    const backdrop = document.getElementById('modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                }
+            }
+            this.selectedStudent = null;
+        },
+        
+        markAllAsRead() {
+            this.notifications = [];
+        },
+        
+        handleNotification(notification) {
+            alert(`Handling notification: ${notification.message}`);
+        },
+        
+        generateReport(type) {
+            alert(`Generating ${type} report...`);
+        },
+        
+        exportData() {
+            window.location.href = '/api/export';
+        },
+        
+        handleFileSelection(event) {
+            const file = event.target.files[0];
+            this.selectedFile = file;
+        },
+        
+        async performImport() {
+            if (!this.selectedFile) return;
+            
+            this.importing = true;
+            this.importSummary = null;
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', this.selectedFile);
+                formData.append('replace_existing', this.replaceExisting.toString());
+                
+                const resp = await fetch('/api/import', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await resp.json();
+                
+                if (data.success) {
+                    console.log('Import successful, response:', data);
+                    this.importSummary = data.summary;
+                    this.showImportModal = false;
+                    
+                    // If replacing existing data, clear current data first
+                    if (data.summary.replaced_existing) {
+                        console.log('Replacing existing data - clearing current dashboard data');
+                        this.students = [];
+                        this.highRiskStudents = [];
+                    }
+                    
+                    // Use the imported data directly if available
+                    if (data.results && data.results.length > 0) {
+                        console.log('Using imported data directly:', data.results);
+                        // Convert import results to student format
+                        const importedStudents = data.results.map(result => ({
+                            id: result.student_id,
+                            student_id: result.student_id,
+                            name: result.name,
+                            risk_score: result.risk_score,
+                            risk_category: result.risk_category,
+                            age_at_enrollment: 20,
+                            gender: 0,
+                            scholarship_holder: 0,
+                            tuition_fees_up_to_date: 1,
+                            curricular_units_1st_sem_grade: 0,
+                            curricular_units_1st_sem_approved: 0,
+                            curricular_units_2nd_sem_grade: 0,
+                            curricular_units_2nd_sem_approved: 0,
+                            last_prediction_date: new Date().toISOString()
+                        }));
+                        
+                        // Set the students data based on replace mode
+                        if (data.summary.replaced_existing) {
+                            // Replace mode: use only imported data
+                            this.students = importedStudents;
+                            console.log('Replaced all data with', this.students.length, 'new students');
+                        } else {
+                            // Merge mode: add to existing data
+                            this.students = [...this.students, ...importedStudents];
+                            console.log('Added', importedStudents.length, 'students, total now:', this.students.length);
+                        }
+                        
+                        this.highRiskStudents = this.students.filter(s => s.risk_category === 'High');
+                        console.log('High risk students:', this.highRiskStudents.length);
+                        
+                        // Render charts with new data
+                        this.$nextTick(() => {
+                            setTimeout(() => this.renderCharts(), 100);
+                        });
+                    }
+                    
+                    // Show detailed success message
+                    let message = `Import successful!\n\n`;
+                    message += `📁 File: ${data.summary.file_name}\n`;
+                    message += `📊 Total records: ${data.summary.total}\n`;
+                    message += `✅ Created: ${data.summary.created}\n`;
+                    message += `🔄 Updated: ${data.summary.updated}\n`;
+                    
+                    if (data.summary.replaced_existing) {
+                        message += `🔄 Replaced all existing data\n`;
+                    }
+                    
+                    if (data.warnings) {
+                        message += `\n⚠️ ${data.warnings.message}`;
+                    }
+                    
+                    alert(message);
+                    
+                    // Only refresh from API if we're not replacing data (to avoid overriding)
+                    if (!data.summary.replaced_existing) {
+                        console.log('Refreshing from API to get complete data...');
+                        setTimeout(() => this.loadData(), 1000);
+                    } else {
+                        console.log('Skipping API refresh since we replaced all data');
+                    }
+                } else {
+                    alert('Import failed: ' + (data.message || 'Unknown error'));
+                }
+            } catch (e) {
+                console.error('Import error', e);
+                alert('Network error during import');
+            } finally {
+                this.importing = false;
+                this.selectedFile = null;
+                this.replaceExisting = false;
+                if (this.$refs.fileInput) {
+                    this.$refs.fileInput.value = '';
+                }
+            }
+        },
+        
+        getRiskClass(category) {
+            switch(category) {
+                case 'High': return 'risk-high';
+                case 'Medium': return 'risk-medium';
+                case 'Low': return 'risk-low';
+                default: return '';
+            }
+        },
+        
+        getProgressBarClass(category) {
+            switch(category) {
+                case 'High': return 'bg-danger';
+                case 'Medium': return 'bg-warning';
+                case 'Low': return 'bg-success';
+                default: return 'bg-primary';
+            }
+        },
+        
+        getNotificationTitle(type) {
+            switch(type) {
+                case 'high_risk_alert': return 'High Risk Alert';
+                case 'intervention_needed': return 'Intervention Needed';
+                default: return 'Notification';
+            }
+        },
+        
+        formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            return new Date(dateString).toLocaleDateString();
+        }
+    }
+}).mount('#universityApp');
+</script>
+{% endblock %}

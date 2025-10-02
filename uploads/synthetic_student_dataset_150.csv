@@ -1,0 +1,151 @@
+Marital status,Application mode,Application order,Course,Daytime/evening attendance,Previous qualification,Nacionality,Mother's qualification,Father's qualification,Mother's occupation,Father's occupation,Displaced,Educational special needs,Debtor,Tuition fees up to date,Gender,Scholarship holder,Age at enrollment,International,Curricular units 1st sem (credited),Curricular units 1st sem (enrolled),Curricular units 1st sem (evaluations),Curricular units 1st sem (approved),Curricular units 1st sem (grade),Curricular units 1st sem (without evaluations),Curricular units 2nd sem (credited),Curricular units 2nd sem (enrolled),Curricular units 2nd sem (evaluations),Curricular units 2nd sem (approved),Curricular units 2nd sem (grade),Curricular units 2nd sem (without evaluations),Unemployment rate,Inflation rate,GDP
+Divorced,In-person,3,Medicine,Daytime,High School,Local,Master,None,Employed,Unemployed,0,0,0,0,Male,0,29,0,3,9,1,2,16.39,0,7,9,6,1,6.08,4,7.91,0.49,35842.79
+Single,Online,5,Science,Daytime,Bachelor,Local,High School,None,Employed,Self-employed,1,0,1,0,Male,0,25,1,0,4,9,8,17.6,1,7,5,1,9,6.08,3,14.09,5.81,6123.48
+Divorced,Referral,1,Arts,Daytime,Master,Local,Bachelor,None,Employed,Employed,0,1,0,1,Female,0,39,1,6,6,2,4,10.51,4,2,1,4,5,4.61,2,4.34,4.26,12714.54
+Divorced,Referral,4,Engineering,Daytime,High School,Foreign,None,Bachelor,Self-employed,Self-employed,1,1,1,1,Male,0,35,0,1,5,5,8,4.89,4,3,5,7,3,0.03,0,9.2,5.48,25411.05
+Single,Online,1,Science,Evening,Bachelor,Local,Master,Bachelor,Self-employed,Unemployed,0,0,0,1,Female,1,29,0,1,1,9,8,2.26,0,9,8,2,2,14.59,3,12.44,5.21,25469.26
+Single,Referral,4,Medicine,Evening,Master,Foreign,None,None,Unemployed,Unemployed,0,0,1,1,Female,0,27,0,8,9,4,0,1.74,1,5,8,9,1,19.34,3,14.31,3.5,35856.52
+Divorced,Referral,1,Medicine,Evening,Master,Foreign,High School,High School,Unemployed,Employed,1,0,1,0,Female,0,17,1,4,1,3,1,14.38,2,9,5,8,0,4.49,2,11.96,6.77,45959.59
+Married,Online,5,Science,Evening,High School,Local,High School,Master,Unemployed,Unemployed,0,1,0,1,Female,0,38,0,1,8,7,4,8.4,0,2,9,8,4,13.26,3,11.65,7.59,33756.45
+Divorced,Online,4,Arts,Daytime,High School,Local,High School,High School,Employed,Employed,1,0,1,1,Male,1,23,1,8,9,6,3,18.11,0,1,1,7,1,14.84,2,12.92,0.15,47909.08
+Divorced,Referral,3,Medicine,Daytime,High School,Foreign,Master,High School,Employed,Unemployed,0,1,1,0,Female,1,37,0,8,9,8,9,14.79,4,5,4,4,1,16.97,1,8.35,2.07,44672.7
+Divorced,Referral,1,Arts,Daytime,Bachelor,Local,Bachelor,High School,Self-employed,Unemployed,1,1,0,1,Male,1,31,1,0,1,3,8,3.83,0,4,3,2,6,8.45,4,12.67,7.13,31302.49
+Divorced,Referral,1,Medicine,Evening,High School,Local,Master,None,Employed,Employed,1,1,1,0,Female,1,17,0,2,2,5,6,12.28,0,9,2,3,7,6.06,1,3.1,3.87,42520.64
+Single,In-person,4,Medicine,Evening,Master,Foreign,None,Bachelor,Employed,Employed,0,0,0,1,Female,0,28,1,3,1,4,5,8.71,0,4,8,6,9,6.51,2,14.09,6.62,33915.99
+Divorced,In-person,3,Law,Daytime,Master,Foreign,Master,High School,Employed,Employed,1,1,0,1,Male,0,23,0,6,2,4,6,11.54,4,9,7,5,7,14.25,2,8.32,3.47,8535.1
+Married,In-person,3,Medicine,Daytime,High School,Local,None,None,Unemployed,Unemployed,0,0,1,0,Male,1,31,0,9,8,4,0,14.76,2,4,9,8,3,16.34,1,9.64,3.91,38325.41
+Single,Online,5,Engineering,Evening,High School,Foreign,Master,High School,Unemployed,Unemployed,0,1,1,0,Male,1,37,0,3,5,8,0,16.12,2,9,2,6,0,3.63,0,6.06,1.59,9270.88
+Married,In-person,3,Science,Evening,Master,Local,Bachelor,High School,Self-employed,Self-employed,0,0,1,1,Female,0,35,1,1,7,6,7,16.87,0,4,4,6,6,7.42,0,11.91,2.58,31733.73
+Married,Online,3,Science,Daytime,Bachelor,Local,None,None,Employed,Employed,1,1,1,1,Female,0,17,0,6,2,3,1,5.08,4,2,6,1,0,18.04,0,3.92,6.05,36618.81
+Married,Online,3,Arts,Daytime,High School,Local,High School,Bachelor,Employed,Unemployed,1,0,1,1,Male,1,33,1,5,8,5,9,0.62,2,6,3,4,3,16.13,2,13.47,4.33,7993.74
+Married,In-person,2,Medicine,Evening,High School,Foreign,High School,Bachelor,Self-employed,Unemployed,0,1,1,0,Male,1,33,1,2,6,6,8,14.79,2,5,8,5,7,19.7,3,12.94,7.74,15385.76
+Single,In-person,5,Engineering,Daytime,Master,Local,Master,Master,Employed,Employed,0,0,1,1,Male,1,19,0,5,8,5,6,2.13,2,3,3,3,1,15.08,2,5.59,8.53,46205.25
+Single,In-person,1,Arts,Daytime,High School,Local,High School,None,Employed,Self-employed,1,0,0,0,Male,1,28,0,5,1,6,5,6.3,4,1,2,9,5,7.86,3,12.71,5.42,32734.15
+Married,Referral,4,Law,Daytime,Bachelor,Local,None,Master,Unemployed,Employed,0,0,1,0,Female,0,22,0,4,1,8,0,0.08,4,8,3,1,5,11.81,1,12.44,7.58,16082.87
+Married,In-person,1,Arts,Evening,Master,Foreign,High School,Master,Self-employed,Self-employed,0,0,0,1,Male,0,27,1,3,7,7,0,13.63,0,0,6,6,8,13.22,4,10.59,3.07,36080.59
+Single,Referral,5,Arts,Evening,High School,Foreign,Bachelor,Master,Self-employed,Unemployed,1,1,1,0,Male,0,19,0,9,8,5,1,3.34,3,3,2,6,4,1.57,3,7.48,4.15,31854.94
+Single,Online,4,Medicine,Evening,Master,Foreign,Bachelor,Bachelor,Self-employed,Self-employed,0,1,1,1,Male,1,24,1,0,3,6,5,13.11,2,0,8,5,9,10.89,0,6.26,7.13,27570.91
+Single,Referral,5,Law,Evening,High School,Foreign,Master,None,Self-employed,Unemployed,1,0,0,1,Male,1,30,1,9,5,4,5,19.83,3,5,1,5,3,14.19,2,5.78,3.86,48928.41
+Divorced,In-person,3,Arts,Evening,High School,Foreign,None,Master,Unemployed,Employed,0,1,1,1,Female,0,30,0,5,1,9,1,1.45,4,3,7,5,4,3.35,1,6.82,5.89,35755.42
+Divorced,Online,4,Engineering,Evening,High School,Local,Bachelor,None,Unemployed,Employed,1,0,1,1,Male,0,26,0,1,7,4,0,1.54,4,4,2,6,9,15.61,0,13.84,1.85,21894.85
+Divorced,Online,3,Engineering,Evening,Bachelor,Foreign,Bachelor,None,Employed,Employed,0,0,0,1,Female,0,18,0,2,5,1,9,6.81,4,4,6,8,4,11.68,1,3.93,6.0,41003.3
+Married,Online,1,Science,Daytime,Bachelor,Foreign,None,Bachelor,Employed,Self-employed,0,1,1,0,Male,0,30,0,7,8,7,4,17.33,3,8,2,2,7,19.04,4,12.95,8.62,44806.25
+Divorced,Referral,1,Law,Daytime,Master,Foreign,High School,Master,Employed,Unemployed,1,0,1,0,Male,1,25,0,9,8,7,4,4.31,4,0,2,6,9,0.85,2,7.19,8.69,10634.93
+Married,In-person,4,Law,Daytime,High School,Local,High School,Master,Employed,Employed,0,0,1,1,Female,0,19,0,5,9,4,1,7.21,0,1,8,1,7,5.31,2,9.26,7.24,14024.88
+Married,Online,4,Science,Daytime,High School,Foreign,Master,None,Unemployed,Employed,1,1,0,1,Male,0,37,1,2,7,3,5,1.37,4,5,2,4,1,12.03,4,12.53,7.46,14730.22
+Divorced,Online,5,Arts,Daytime,Bachelor,Foreign,High School,High School,Self-employed,Unemployed,0,0,1,0,Female,0,24,1,6,1,8,8,15.26,1,4,7,3,6,5.93,2,13.61,5.58,36104.53
+Married,Online,5,Law,Daytime,High School,Local,None,Bachelor,Unemployed,Employed,1,0,1,0,Female,0,32,1,3,3,5,1,8.17,3,6,3,9,7,14.29,3,7.14,5.85,32136.78
+Divorced,Referral,3,Engineering,Daytime,Bachelor,Foreign,Bachelor,Bachelor,Employed,Unemployed,1,0,1,0,Male,0,18,0,8,8,7,9,15.18,1,2,8,3,5,15.18,1,8.54,1.34,32854.62
+Divorced,Referral,4,Engineering,Evening,High School,Local,High School,Bachelor,Unemployed,Unemployed,1,0,1,0,Female,0,22,1,4,3,4,1,18.07,4,2,7,6,4,2.05,0,7.97,4.44,47334.8
+Single,In-person,1,Medicine,Evening,Master,Local,Master,Bachelor,Self-employed,Unemployed,1,1,0,1,Female,0,37,1,2,8,4,2,4.66,0,9,8,1,8,10.28,4,3.16,4.51,39916.02
+Divorced,Referral,5,Law,Daytime,High School,Local,High School,Master,Self-employed,Unemployed,0,1,0,1,Female,1,28,1,1,1,8,6,16.15,2,1,7,6,2,10.18,3,6.55,9.58,10757.16
+Single,Online,5,Arts,Daytime,High School,Local,None,Master,Unemployed,Unemployed,0,1,1,0,Female,1,21,1,1,5,8,5,1.18,4,2,6,4,9,7.39,0,8.51,4.31,20637.82
+Divorced,In-person,1,Science,Evening,Bachelor,Local,Master,High School,Unemployed,Self-employed,1,0,1,1,Female,1,18,1,2,4,2,7,17.98,0,9,7,8,3,18.66,0,7.93,5.49,24592.71
+Divorced,Online,5,Science,Daytime,High School,Foreign,High School,Bachelor,Unemployed,Employed,1,0,0,0,Female,1,32,0,1,5,2,7,13.02,3,0,5,9,8,16.55,4,11.66,5.33,22818.27
+Single,Online,3,Arts,Daytime,High School,Local,Master,Bachelor,Employed,Self-employed,1,1,0,1,Female,0,21,0,3,8,3,5,17.48,1,4,7,4,5,13.94,3,7.62,6.37,35118.89
+Single,Referral,4,Medicine,Evening,Bachelor,Local,None,None,Unemployed,Employed,0,0,1,0,Female,1,31,1,1,4,3,9,0.0,1,4,1,6,7,14.29,0,8.87,7.48,45135.19
+Divorced,In-person,1,Science,Daytime,Master,Foreign,Bachelor,Master,Unemployed,Self-employed,0,0,0,1,Male,1,28,1,9,4,1,2,3.38,1,6,1,1,6,9.23,0,8.16,2.25,18772.32
+Married,Referral,4,Law,Evening,Master,Local,None,Bachelor,Unemployed,Unemployed,0,0,1,0,Male,0,20,1,8,3,3,2,7.8,3,3,9,4,1,18.42,3,11.89,5.29,29834.47
+Single,Referral,5,Medicine,Daytime,Bachelor,Foreign,None,High School,Self-employed,Employed,0,0,0,0,Female,0,31,0,1,7,6,0,7.59,0,2,5,7,2,13.89,2,13.36,8.26,40523.42
+Married,In-person,5,Law,Evening,Bachelor,Foreign,None,High School,Self-employed,Employed,1,1,0,1,Male,1,27,0,8,3,8,6,4.53,3,0,5,1,0,14.58,0,9.38,4.63,23729.81
+Married,Online,1,Engineering,Evening,Bachelor,Foreign,None,Master,Employed,Self-employed,1,1,0,0,Female,1,32,1,5,3,6,4,7.63,1,7,3,8,8,17.23,1,12.47,2.78,12565.32
+Married,Online,3,Medicine,Evening,Bachelor,Local,Bachelor,High School,Employed,Self-employed,1,1,0,1,Female,0,39,0,0,5,5,3,2.58,4,2,5,6,6,5.48,3,6.56,6.55,26372.79
+Single,In-person,2,Science,Daytime,Bachelor,Local,Bachelor,High School,Self-employed,Employed,0,0,1,1,Male,1,22,0,3,5,4,9,8.26,2,1,3,5,0,16.14,0,9.5,8.24,7485.01
+Married,Online,1,Medicine,Evening,Master,Local,Master,Master,Self-employed,Self-employed,0,1,0,0,Female,0,30,1,0,6,3,3,16.05,3,3,9,9,2,3.9,4,7.14,0.63,47407.26
+Single,In-person,2,Medicine,Daytime,Master,Foreign,High School,Bachelor,Self-employed,Self-employed,0,1,0,1,Female,0,34,0,5,8,4,3,9.58,3,2,9,2,3,6.91,1,7.97,7.77,8366.95
+Married,In-person,2,Medicine,Daytime,Bachelor,Local,Bachelor,Bachelor,Unemployed,Self-employed,1,0,1,1,Female,0,28,0,3,6,7,5,0.36,0,0,6,5,3,6.71,0,11.79,8.22,24730.55
+Divorced,Referral,3,Medicine,Daytime,High School,Local,Bachelor,High School,Unemployed,Unemployed,1,0,0,1,Female,0,27,1,2,1,1,7,8.43,0,2,1,6,4,19.57,1,13.58,4.62,28844.66
+Divorced,In-person,2,Law,Daytime,Bachelor,Local,High School,High School,Self-employed,Unemployed,0,1,0,1,Male,1,29,0,2,8,7,7,0.54,3,1,7,7,2,17.13,1,4.46,9.83,49338.67
+Single,Referral,2,Engineering,Evening,High School,Foreign,Bachelor,Bachelor,Unemployed,Self-employed,1,1,1,1,Female,0,37,0,8,8,1,4,19.32,1,7,7,5,2,14.02,2,10.62,7.87,12470.98
+Divorced,Online,3,Arts,Evening,Bachelor,Foreign,None,Master,Unemployed,Self-employed,0,1,0,0,Female,0,39,1,5,9,2,5,2.55,2,5,4,9,0,14.54,1,9.99,7.74,10149.42
+Divorced,Online,2,Medicine,Daytime,Bachelor,Local,None,High School,Employed,Unemployed,0,1,1,1,Female,1,27,0,8,9,4,3,14.15,0,8,8,1,6,11.24,2,4.42,7.48,5391.78
+Married,Online,2,Science,Daytime,Master,Local,High School,None,Self-employed,Unemployed,1,0,1,1,Male,0,39,0,4,2,1,8,19.46,1,7,6,7,9,18.94,3,5.54,1.51,12000.71
+Single,Online,2,Medicine,Evening,High School,Local,Master,Master,Self-employed,Employed,0,1,1,1,Female,1,32,1,1,2,9,7,16.52,4,9,4,7,0,9.93,2,6.73,2.17,14327.28
+Married,Referral,1,Science,Daytime,High School,Local,Master,High School,Unemployed,Employed,1,1,1,1,Male,1,31,1,7,3,6,9,13.99,0,2,4,4,1,7.61,4,5.0,4.64,33376.14
+Married,Online,1,Law,Evening,Master,Foreign,High School,High School,Self-employed,Unemployed,0,0,0,1,Male,1,37,1,4,1,1,9,16.79,1,4,2,9,3,3.26,0,5.92,2.64,14886.81
+Married,In-person,1,Science,Daytime,Master,Foreign,High School,None,Employed,Self-employed,1,1,1,0,Female,0,31,0,1,4,1,0,19.64,1,6,2,5,3,15.72,3,6.21,4.15,5923.44
+Married,In-person,3,Arts,Daytime,Master,Foreign,None,None,Employed,Self-employed,1,0,0,1,Female,1,20,1,3,4,6,1,12.43,2,4,4,4,4,14.69,3,7.03,8.88,42197.83
+Married,In-person,5,Engineering,Evening,Master,Foreign,Master,Bachelor,Employed,Self-employed,1,0,0,0,Male,1,27,0,8,9,4,8,11.18,2,7,5,7,1,7.69,4,11.99,8.24,21451.81
+Married,Referral,2,Science,Daytime,High School,Local,Bachelor,Master,Self-employed,Self-employed,0,0,0,0,Female,0,35,1,3,9,4,7,12.56,4,4,8,4,3,0.5,2,9.86,6.3,20916.35
+Married,Online,2,Science,Evening,High School,Local,None,Master,Self-employed,Employed,0,1,0,0,Male,1,31,0,3,9,6,2,10.65,1,0,6,3,0,16.78,0,14.83,8.58,18611.56
+Single,Online,3,Engineering,Daytime,Bachelor,Local,High School,Bachelor,Self-employed,Unemployed,1,1,0,0,Male,1,20,1,1,7,7,7,12.7,1,4,4,9,1,0.23,2,7.98,7.84,48891.8
+Divorced,Online,2,Arts,Daytime,Bachelor,Foreign,Master,Master,Self-employed,Self-employed,1,0,0,1,Female,1,37,1,5,2,9,0,9.0,2,3,7,8,0,14.07,1,12.05,4.29,12655.19
+Married,Referral,1,Medicine,Daytime,Master,Local,Bachelor,Master,Self-employed,Employed,0,1,0,0,Female,1,29,1,1,5,5,9,4.37,0,5,8,1,9,19.41,2,13.46,2.01,45420.71
+Married,In-person,5,Science,Evening,Master,Foreign,Bachelor,Master,Employed,Self-employed,0,1,0,0,Male,1,38,1,6,4,9,3,2.4,0,2,2,7,9,8.75,3,11.15,5.14,39956.15
+Married,In-person,4,Engineering,Daytime,Master,Foreign,None,Master,Unemployed,Unemployed,0,0,0,1,Male,0,35,0,2,8,4,2,1.37,3,4,7,9,3,4.7,0,7.94,7.36,8441.6
+Married,Online,2,Law,Daytime,Bachelor,Local,Master,Master,Employed,Employed,1,0,0,1,Male,1,18,1,2,2,2,5,5.27,2,1,2,8,3,14.1,2,12.04,4.36,49402.81
+Married,In-person,1,Engineering,Daytime,Bachelor,Local,Master,None,Self-employed,Unemployed,0,1,1,1,Male,1,30,1,4,6,3,6,0.92,3,5,2,8,6,16.34,0,5.44,6.67,17211.47
+Married,In-person,4,Law,Daytime,Bachelor,Local,High School,Master,Employed,Unemployed,0,0,1,0,Female,0,20,0,2,5,1,3,11.34,2,5,8,6,9,10.93,0,6.93,0.94,9436.23
+Divorced,Referral,5,Arts,Evening,Bachelor,Foreign,Master,None,Self-employed,Employed,1,1,1,1,Female,0,32,1,1,2,6,6,5.68,4,4,2,4,8,19.34,1,9.56,7.48,42319.14
+Divorced,Referral,4,Medicine,Evening,Bachelor,Local,Master,Master,Self-employed,Employed,0,1,0,1,Female,0,37,0,9,1,6,8,16.49,1,5,9,8,8,1.03,1,9.9,8.13,36800.4
+Married,Referral,1,Engineering,Daytime,Bachelor,Foreign,None,Bachelor,Employed,Employed,0,1,1,0,Female,1,36,1,8,8,1,1,1.48,4,6,1,3,4,10.1,3,3.27,7.07,32774.85
+Divorced,Referral,4,Science,Evening,Bachelor,Local,Master,High School,Self-employed,Employed,0,1,1,1,Female,0,30,1,1,2,3,2,4.53,2,4,9,9,9,14.37,4,14.34,9.67,12019.14
+Single,Online,3,Arts,Daytime,Master,Foreign,Bachelor,None,Unemployed,Employed,1,0,1,1,Male,1,31,1,1,7,5,4,14.6,1,0,1,2,0,17.25,0,11.36,8.27,26532.33
+Married,Referral,4,Engineering,Daytime,Master,Foreign,None,Master,Self-employed,Employed,1,0,0,1,Female,1,19,0,7,9,3,2,11.98,0,7,2,2,0,3.59,4,8.95,9.03,40125.02
+Single,In-person,2,Science,Daytime,Master,Local,None,Bachelor,Unemployed,Employed,1,0,0,1,Female,0,24,1,8,9,3,7,1.29,0,3,6,7,5,16.0,3,14.2,9.34,18663.08
+Single,Online,2,Engineering,Evening,Master,Foreign,High School,High School,Unemployed,Self-employed,1,0,0,0,Female,0,32,1,6,8,3,9,17.54,3,8,6,4,1,11.05,0,8.27,8.01,19026.04
+Married,In-person,3,Law,Evening,Bachelor,Foreign,Master,None,Self-employed,Unemployed,1,1,0,1,Female,1,26,1,2,9,5,7,17.55,2,9,1,8,7,7.93,0,14.77,6.74,5141.34
+Divorced,In-person,1,Engineering,Evening,High School,Local,High School,High School,Employed,Employed,1,1,1,1,Female,0,20,0,8,2,5,7,6.61,2,5,7,9,8,2.63,4,9.15,0.06,12840.95
+Single,In-person,2,Engineering,Evening,Bachelor,Foreign,Bachelor,Bachelor,Unemployed,Self-employed,1,0,1,0,Male,1,34,0,2,6,4,8,6.81,0,0,8,7,3,17.31,2,4.37,4.66,44393.25
+Married,Referral,5,Engineering,Evening,High School,Local,None,None,Employed,Self-employed,0,1,1,1,Male,0,18,1,4,4,1,3,19.78,4,2,2,5,4,3.15,1,12.18,5.71,24878.59
+Single,Referral,2,Arts,Evening,Master,Foreign,None,High School,Unemployed,Self-employed,0,1,1,0,Male,0,33,0,8,4,5,4,12.52,1,2,8,8,7,6.2,2,11.15,3.04,49290.55
+Single,Online,2,Engineering,Evening,Bachelor,Local,None,Master,Self-employed,Unemployed,1,1,0,1,Female,0,29,1,2,5,5,4,10.63,4,9,9,4,2,5.8,4,12.28,3.18,22806.86
+Single,Online,1,Science,Evening,Master,Local,Bachelor,None,Self-employed,Employed,0,0,0,0,Male,1,20,1,6,3,4,7,16.76,4,3,6,2,4,17.43,1,14.42,9.61,37183.39
+Single,Referral,4,Law,Evening,Bachelor,Foreign,Bachelor,High School,Unemployed,Self-employed,0,0,0,0,Male,0,27,1,0,1,6,6,5.71,0,5,5,6,2,13.45,2,12.32,8.92,17686.36
+Divorced,In-person,2,Law,Daytime,Master,Foreign,High School,Bachelor,Self-employed,Unemployed,1,0,1,0,Female,1,23,1,3,8,4,8,8.58,0,6,9,9,9,15.93,1,10.34,8.49,21371.43
+Single,Online,3,Engineering,Evening,High School,Foreign,High School,Bachelor,Unemployed,Unemployed,0,1,0,0,Female,1,28,1,3,5,7,7,5.36,0,9,9,1,2,5.01,0,13.29,4.06,13582.67
+Single,Referral,4,Arts,Evening,High School,Foreign,High School,None,Self-employed,Unemployed,0,0,0,1,Female,1,26,1,6,3,7,1,15.78,3,3,1,7,2,12.5,2,11.08,0.14,20617.81
+Single,Referral,5,Arts,Evening,High School,Foreign,Master,High School,Employed,Self-employed,0,0,1,0,Male,1,23,1,7,7,2,9,11.47,4,5,3,9,6,11.43,1,7.9,0.8,29625.69
+Divorced,Referral,1,Science,Evening,Bachelor,Local,None,None,Self-employed,Employed,0,0,1,1,Male,0,29,0,0,7,3,3,13.18,2,0,9,9,6,16.66,1,13.63,3.12,49629.78
+Single,In-person,5,Engineering,Evening,High School,Foreign,None,None,Employed,Self-employed,0,0,0,0,Female,1,23,0,4,1,1,5,5.05,1,7,2,3,6,18.12,1,5.66,0.16,34889.08
+Single,Referral,4,Law,Evening,Bachelor,Local,High School,High School,Self-employed,Self-employed,1,0,0,0,Female,1,33,0,6,9,8,1,4.4,3,6,4,5,9,0.24,2,11.58,0.17,13966.07
+Divorced,Referral,4,Arts,Evening,High School,Local,None,High School,Employed,Employed,1,0,0,0,Male,0,26,0,3,2,9,6,9.77,2,8,4,8,7,13.48,3,13.58,9.17,7023.26
+Divorced,Referral,4,Engineering,Evening,High School,Foreign,High School,Master,Self-employed,Employed,1,1,0,1,Male,1,26,0,3,5,4,2,14.75,4,2,2,8,4,1.04,2,11.78,7.06,10686.04
+Divorced,Referral,5,Arts,Evening,Bachelor,Local,Master,High School,Employed,Employed,0,1,0,0,Female,0,20,0,3,5,6,2,10.5,0,1,3,4,4,10.98,4,11.37,3.09,30314.98
+Single,Online,4,Arts,Evening,Bachelor,Local,Master,Bachelor,Unemployed,Unemployed,1,0,0,1,Female,1,36,0,5,8,9,1,0.65,4,0,3,1,3,5.75,2,12.03,1.33,39432.21
+Divorced,Online,5,Law,Evening,High School,Local,Bachelor,None,Unemployed,Employed,0,0,1,1,Male,0,20,1,6,8,6,7,17.37,1,2,1,1,6,6.14,1,8.58,5.12,47318.86
+Divorced,Referral,4,Medicine,Daytime,Bachelor,Local,Master,None,Employed,Self-employed,0,1,1,1,Female,1,38,1,1,7,9,5,1.29,3,4,6,4,9,7.06,0,13.49,0.05,5712.04
+Single,In-person,3,Science,Daytime,High School,Foreign,High School,Bachelor,Self-employed,Employed,0,1,1,1,Male,0,23,1,4,7,4,0,19.12,3,1,8,6,3,12.43,2,5.44,9.38,28524.21
+Divorced,Online,4,Science,Evening,Bachelor,Local,Master,High School,Employed,Self-employed,0,0,0,1,Male,1,38,1,3,6,8,0,0.5,1,2,3,8,1,6.68,2,4.53,4.15,26189.03
+Single,Referral,5,Law,Evening,Master,Foreign,Bachelor,Bachelor,Self-employed,Unemployed,1,0,1,1,Male,1,17,0,2,6,9,6,13.89,2,3,5,6,3,14.65,1,6.43,4.02,34522.48
+Married,Online,2,Arts,Daytime,Master,Foreign,None,Bachelor,Unemployed,Self-employed,1,0,0,1,Male,0,28,0,6,9,4,7,1.64,2,6,1,9,7,8.09,0,9.38,3.91,30181.05
+Divorced,Online,4,Engineering,Evening,Master,Local,High School,Master,Self-employed,Self-employed,0,0,0,1,Female,0,29,1,5,6,5,4,18.21,3,2,7,9,8,1.37,0,9.13,0.69,35916.76
+Married,In-person,2,Arts,Daytime,Master,Foreign,None,Bachelor,Unemployed,Employed,1,1,1,1,Female,0,26,1,6,2,8,4,9.29,3,8,1,2,2,15.68,4,12.85,6.38,34613.72
+Single,Referral,3,Law,Daytime,Master,Foreign,Bachelor,None,Self-employed,Employed,0,0,0,0,Male,0,31,0,4,2,6,3,2.75,0,7,9,1,6,5.72,2,7.85,7.33,10265.53
+Divorced,Referral,1,Science,Daytime,High School,Foreign,Bachelor,Bachelor,Self-employed,Self-employed,1,0,0,0,Male,1,29,1,5,5,7,5,6.82,2,3,8,2,8,8.66,0,8.81,6.76,40987.31
+Single,In-person,3,Arts,Daytime,Master,Local,Bachelor,None,Self-employed,Employed,1,0,1,0,Male,1,39,1,4,4,3,5,3.3,1,0,7,5,3,13.71,0,3.16,1.38,10545.47
+Married,In-person,4,Science,Daytime,Master,Foreign,None,None,Employed,Unemployed,0,0,1,0,Male,0,38,1,6,2,7,2,3.41,2,0,7,4,9,6.65,3,7.92,5.79,36433.88
+Single,Referral,2,Engineering,Evening,Master,Foreign,None,None,Employed,Unemployed,1,1,1,0,Male,1,38,1,1,3,8,8,18.96,0,0,5,4,2,1.13,3,10.77,5.69,23726.54
+Divorced,Referral,2,Science,Daytime,Master,Foreign,None,High School,Unemployed,Employed,0,1,0,1,Female,0,37,0,4,7,6,6,8.9,3,0,5,9,4,7.48,0,3.19,8.68,28123.28
+Divorced,In-person,5,Science,Evening,Bachelor,Local,None,Master,Unemployed,Unemployed,1,1,1,1,Female,0,38,1,5,8,9,0,15.78,3,7,5,8,0,18.89,4,6.37,3.79,45648.41
+Married,Online,2,Medicine,Evening,High School,Foreign,Bachelor,None,Employed,Employed,0,0,1,1,Female,1,25,1,5,6,6,6,12.79,0,2,1,6,2,12.83,0,5.5,3.71,45044.77
+Single,Online,5,Medicine,Daytime,Master,Local,Bachelor,None,Unemployed,Self-employed,0,0,0,1,Female,1,25,0,4,5,9,4,13.53,1,5,8,1,7,13.43,1,3.5,6.19,41803.53
+Divorced,In-person,1,Medicine,Daytime,Master,Local,High School,High School,Employed,Self-employed,1,1,1,1,Male,1,31,0,9,1,4,4,2.63,3,2,1,2,7,12.65,2,8.75,6.33,27956.68
+Married,Online,4,Science,Evening,Master,Local,High School,None,Self-employed,Unemployed,1,0,1,1,Male,1,26,1,6,8,8,1,4.68,4,4,4,6,3,3.98,4,5.18,4.69,38130.79
+Divorced,In-person,5,Law,Daytime,High School,Local,None,Bachelor,Unemployed,Employed,0,0,1,1,Male,1,26,0,9,3,4,3,15.74,3,6,9,2,1,8.37,1,11.92,4.43,28080.37
+Divorced,Online,1,Science,Daytime,Bachelor,Local,Master,Bachelor,Unemployed,Employed,1,1,0,0,Male,1,24,1,7,6,2,5,19.42,4,1,9,5,7,15.02,4,13.18,4.94,44132.27
+Single,Online,2,Law,Evening,High School,Local,Master,Master,Employed,Unemployed,1,1,0,0,Male,1,32,1,6,3,9,9,5.25,0,5,5,5,7,2.03,1,9.55,8.61,23124.91
+Divorced,Referral,2,Law,Evening,Bachelor,Foreign,Bachelor,None,Unemployed,Self-employed,0,1,0,0,Female,0,33,0,4,7,5,6,5.43,0,5,4,6,9,5.56,2,14.78,4.61,48660.59
+Single,Referral,1,Medicine,Daytime,Master,Local,Bachelor,High School,Unemployed,Unemployed,0,1,0,0,Male,0,21,1,0,7,4,4,9.46,3,2,3,6,3,5.53,2,8.41,9.4,46954.52
+Divorced,Online,2,Arts,Evening,Master,Foreign,Bachelor,Bachelor,Self-employed,Self-employed,1,0,1,1,Female,0,20,1,4,9,2,8,19.68,2,5,3,6,2,8.64,3,9.16,5.04,38372.12
+Married,Online,1,Engineering,Daytime,High School,Foreign,High School,High School,Unemployed,Employed,0,0,0,1,Female,0,34,1,9,5,1,2,5.38,4,9,5,2,1,19.61,1,14.87,9.49,17573.71
+Divorced,Referral,5,Medicine,Daytime,High School,Local,High School,High School,Self-employed,Self-employed,0,1,0,1,Female,0,35,1,1,8,7,0,8.14,1,9,1,3,8,1.35,3,5.78,8.33,10924.41
+Single,Referral,5,Medicine,Daytime,Bachelor,Foreign,Bachelor,Bachelor,Employed,Unemployed,0,0,1,0,Female,1,20,0,4,8,6,3,17.83,3,4,5,6,0,10.37,1,14.31,3.62,43461.66
+Single,Referral,1,Arts,Evening,Bachelor,Foreign,Bachelor,High School,Unemployed,Employed,1,1,1,1,Male,0,23,0,4,1,2,8,0.06,1,1,6,8,6,3.59,3,3.51,8.64,12438.6
+Married,In-person,5,Engineering,Evening,High School,Foreign,Bachelor,Bachelor,Self-employed,Unemployed,1,1,1,1,Female,0,26,1,1,5,8,3,0.8,3,8,7,1,4,19.41,2,8.36,1.1,43441.74
+Divorced,Online,5,Science,Evening,Bachelor,Foreign,Master,High School,Employed,Unemployed,0,0,0,1,Female,0,34,0,4,3,4,1,12.08,2,7,9,1,7,2.27,4,3.84,9.25,27084.43
+Divorced,Referral,5,Science,Evening,High School,Local,High School,Bachelor,Unemployed,Self-employed,1,1,0,0,Female,0,35,1,3,1,8,9,18.15,2,2,3,2,3,8.07,3,11.75,6.32,23295.06
+Married,Online,3,Medicine,Evening,Bachelor,Foreign,Master,None,Employed,Unemployed,0,0,0,1,Male,0,20,1,0,4,7,4,4.78,2,7,2,6,6,14.76,1,10.3,0.54,45643.59
+Divorced,In-person,4,Engineering,Daytime,High School,Local,Master,Master,Unemployed,Self-employed,1,0,1,0,Male,0,26,1,2,8,5,2,9.39,2,8,3,9,4,14.09,1,11.48,6.44,32173.29
+Divorced,In-person,2,Medicine,Daytime,High School,Foreign,Bachelor,Bachelor,Employed,Employed,0,0,1,0,Male,0,17,1,0,3,8,8,9.01,0,2,9,4,4,8.45,2,7.49,9.74,30947.63
+Single,Referral,3,Law,Daytime,High School,Foreign,Bachelor,Bachelor,Employed,Self-employed,0,0,0,0,Female,1,39,1,4,2,9,3,9.46,0,2,7,3,8,6.93,1,7.43,0.7,30144.47
+Divorced,In-person,5,Medicine,Daytime,Bachelor,Local,None,Master,Self-employed,Employed,1,1,1,0,Female,1,34,0,3,9,5,5,12.45,4,1,9,8,8,7.95,0,3.54,5.55,21702.63
+Divorced,Online,1,Medicine,Evening,Bachelor,Foreign,None,Bachelor,Employed,Self-employed,0,0,1,1,Male,0,21,1,6,5,5,1,9.39,1,7,2,9,8,5.29,4,7.2,7.48,40353.94
+Married,Referral,5,Science,Daytime,Bachelor,Foreign,Master,Bachelor,Unemployed,Unemployed,1,1,1,0,Female,1,31,0,4,7,2,5,8.95,3,9,5,5,5,4.11,3,14.15,8.1,16375.93
+Married,Online,4,Science,Evening,High School,Foreign,High School,High School,Unemployed,Self-employed,1,1,0,0,Male,1,33,0,9,2,5,2,9.49,3,0,4,9,5,9.66,4,7.55,4.14,47250.27
+Single,Online,5,Science,Daytime,Bachelor,Local,Bachelor,Master,Self-employed,Self-employed,0,1,1,1,Male,1,19,1,3,9,3,8,11.82,0,7,2,2,4,5.37,2,12.98,2.04,45229.33
+Divorced,In-person,1,Law,Evening,Bachelor,Foreign,Bachelor,None,Unemployed,Employed,0,1,1,1,Female,1,28,1,1,9,7,1,10.74,3,6,9,3,8,5.75,3,13.11,0.42,20186.61
+Divorced,In-person,4,Science,Evening,High School,Local,Master,Bachelor,Unemployed,Unemployed,1,0,0,0,Female,0,18,1,3,4,5,8,17.08,0,6,9,7,9,13.14,3,7.48,5.8,37825.87
+Divorced,In-person,5,Engineering,Daytime,Master,Foreign,None,Master,Unemployed,Self-employed,0,0,0,1,Female,1,17,1,1,4,8,4,0.99,4,2,6,7,7,19.37,0,10.58,4.53,30795.04
+Single,In-person,4,Arts,Daytime,High School,Local,High School,High School,Employed,Unemployed,0,1,1,0,Female,1,39,1,7,6,1,7,16.67,1,0,6,6,6,12.07,2,4.14,9.49,20194.22
+Single,In-person,2,Engineering,Daytime,Bachelor,Local,None,None,Employed,Self-employed,0,1,1,0,Male,1,37,0,2,6,3,1,16.88,4,3,8,6,6,1.54,1,4.24,0.61,49483.47

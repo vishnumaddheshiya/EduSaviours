@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard - EduTrack AI{% endblock %}
+
+{% block content %}
+<div id="studentApp" class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="p-3">
+                    <h5>Student Portal</h5>
+                    <p class="text-muted mb-0">Welcome back!</p>
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'overview' }" @click="activeTab = 'overview'">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Overview
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'prediction' }" @click="activeTab = 'prediction'">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Risk Assessment
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'recommendations' }" @click="activeTab = 'recommendations'">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Recommendations
+                </div>
+                
+                <div class="sidebar-item" :class="{ active: activeTab === 'progress' }" @click="activeTab = 'progress'">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Progress Tracking
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <!-- Overview Tab -->
+            <div v-if="activeTab === 'overview'">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Dashboard Overview</h2>
+                    <button class="btn btn-custom" @click="refreshData">
+                        <i class="fas fa-sync-alt me-2"></i>
+                        Refresh
+                    </button>
+                </div>
+                
+                <!-- Risk Status Card -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h4>Current Risk Status</h4>
+                                        <p class="text-muted mb-3">Based on your latest academic and personal data</p>
+                                        
+                                        <div v-if="studentData">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <strong class="me-3">Risk Level:</strong>
+                                                <span :class="getRiskClass(studentData.risk_category)" class="px-3 py-1 rounded">
+                                                    {{ studentData.risk_category }} Risk
+                                                </span>
+                                            </div>
+                                            
+                                            <div class="d-flex align-items-center">
+                                                <strong class="me-3">Risk Score:</strong>
+                                                <div class="progress flex-grow-1 me-3" style="height: 10px;">
+                                                    <div 
+                                                        class="progress-bar" 
+                                                        :class="getProgressBarClass(studentData.risk_category)"
+                                                        :style="{ width: (studentData.risk_score * 100) + '%' }"
+                                                    ></div>
+                                                </div>
+                                                <span class="fw-bold">{{ (studentData.risk_score * 100).toFixed(1) }}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4 text-center">
+                                        <div class="position-relative d-inline-block">
+                                            <canvas id="riskChart" width="150" height="150"></canvas>
+                                            <div class="position-absolute top-50 start-50 translate-middle">
+                                                <div class="text-center">
+                                                    <div class="h4 mb-0" v-if="studentData">{{ (studentData.risk_score * 100).toFixed(0) }}%</div>
+                                                    <small class="text-muted">Risk Score</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number text-primary">{{ studentData?.age_at_enrollment || 'N/A' }}</div>
+                            <div class="stats-label">Age at Enrollment</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number text-success">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stats-label">{{ studentData?.scholarship_holder ? 'Scholarship Holder' : 'Regular Student' }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number text-info">
+                                {{ studentData?.last_prediction_date ? new Date(studentData.last_prediction_date).toLocaleDateString() : 'Never' }}
+                            </div>
+                            <div class="stats-label">Last Assessment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Risk Assessment Tab -->
+            <div v-if="activeTab === 'prediction'">
+                <h2 class="mb-4">Risk Assessment</h2>
+                
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5>Update Your Information</h5>
+                        <p class="text-muted">Keep your data current for accurate risk assessment</p>
+                        
+                        <form @submit.prevent="updatePrediction">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">1st Semester Grade</label>
+                                        <input type="number" class="form-control" v-model="updateForm.curricular_units_1st_sem_grade" min="0" max="20" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">2nd Semester Grade</label>
+                                        <input type="number" class="form-control" v-model="updateForm.curricular_units_2nd_sem_grade" min="0" max="20" step="0.1">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Units Approved (1st Sem)</label>
+                                        <input type="number" class="form-control" v-model="updateForm.curricular_units_1st_sem_approved" min="0" max="10">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Units Approved (2nd Sem)</label>
+                                        <input type="number" class="form-control" v-model="updateForm.curricular_units_2nd_sem_approved" min="0" max="10">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tuition Fees Status</label>
+                                        <select class="form-select" v-model="updateForm.tuition_fees_up_to_date">
+                                            <option value="1">Up to Date</option>
+                                            <option value="0">Outstanding</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Financial Status</label>
+                                        <select class="form-select" v-model="updateForm.debtor">
+                                            <option value="0">No Financial Issues</option>
+                                            <option value="1">Financial Difficulties</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-custom" :disabled="updating">
+                                <span v-if="updating">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>
+                                    Updating...
+                                </span>
+                                <span v-else>
+                                    <i class="fas fa-sync-alt me-2"></i>
+                                    Update Assessment
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations Tab -->
+            <div v-if="activeTab === 'recommendations'">
+                <h2 class="mb-4">Personalized Recommendations</h2>
+                
+                <div v-if="recommendations.length > 0">
+                    <div class="card border-0 shadow-sm mb-3" v-for="(rec, index) in recommendations" :key="index">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <i class="fas fa-lightbulb text-warning fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Recommendation {{ index + 1 }}</h6>
+                                    <p class="mb-0">{{ rec }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div v-else class="text-center py-5">
+                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                    <h4>Great Job!</h4>
+                    <p class="text-muted">No specific recommendations at this time. Keep up the good work!</p>
+                </div>
+            </div>
+            
+            <!-- Progress Tracking Tab -->
+            <div v-if="activeTab === 'progress'">
+                <h2 class="mb-4">Progress Tracking</h2>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5>Risk Trend</h5>
+                                <canvas id="progressChart" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5>Academic Performance</h5>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>1st Semester</span>
+                                        <span>{{ updateForm.curricular_units_1st_sem_grade }}/20</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" :style="{ width: (updateForm.curricular_units_1st_sem_grade / 20 * 100) + '%' }"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>2nd Semester</span>
+                                        <span>{{ updateForm.curricular_units_2nd_sem_grade }}/20</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" :style="{ width: (updateForm.curricular_units_2nd_sem_grade / 20 * 100) + '%' }"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            activeTab: 'overview',
+            studentData: null,
+            recommendations: [],
+            updating: false,
+            updateForm: {
+                curricular_units_1st_sem_grade: 12,
+                curricular_units_2nd_sem_grade: 12,
+                curricular_units_1st_sem_approved: 5,
+                curricular_units_2nd_sem_approved: 5,
+                tuition_fees_up_to_date: 1,
+                debtor: 0
+            },
+            riskChart: null,
+            progressChart: null
+        }
+    },
+    
+    mounted() {
+        this.loadStudentData();
+        this.initializeCharts();
+    },
+    
+    methods: {
+        async loadStudentData() {
+            try {
+                // Simulate student data for demo
+                this.studentData = {
+                    id: 1,
+                    student_id: 'STU001',
+                    name: 'Demo Student',
+                    risk_score: 0.35,
+                    risk_category: 'Medium',
+                    age_at_enrollment: 20,
+                    scholarship_holder: 0,
+                    last_prediction_date: new Date().toISOString()
+                };
+                
+                this.recommendations = [
+                    "Schedule regular study sessions to improve academic performance",
+                    "Consider joining study groups for better peer support",
+                    "Meet with academic advisor to discuss course planning",
+                    "Explore tutoring services for challenging subjects"
+                ];
+                
+                this.updateRiskChart();
+            } catch (error) {
+                console.error('Error loading student data:', error);
+            }
+        },
+        
+        async updatePrediction() {
+            this.updating = true;
+            
+            try {
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...this.updateForm,
+                        student_id: this.studentData?.student_id
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.studentData.risk_score = data.risk_score;
+                    this.studentData.risk_category = data.risk_category;
+                    this.recommendations = data.recommendations || [];
+                    this.updateRiskChart();
+                    
+                    alert('Assessment updated successfully!');
+                } else {
+                    alert('Error updating assessment: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error updating prediction:', error);
+                alert('Connection error. Please try again.');
+            } finally {
+                this.updating = false;
+            }
+        },
+        
+        refreshData() {
+            this.loadStudentData();
+        },
+        
+        getRiskClass(category) {
+            switch(category) {
+                case 'High': return 'risk-high';
+                case 'Medium': return 'risk-medium';
+                case 'Low': return 'risk-low';
+                default: return '';
+            }
+        },
+        
+        getProgressBarClass(category) {
+            switch(category) {
+                case 'High': return 'bg-danger';
+                case 'Medium': return 'bg-warning';
+                case 'Low': return 'bg-success';
+                default: return 'bg-primary';
+            }
+        },
+        
+        initializeCharts() {
+            // Initialize risk chart
+            const riskCtx = document.getElementById('riskChart');
+            if (riskCtx) {
+                this.riskChart = new Chart(riskCtx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [0, 100],
+                            backgroundColor: ['#dc3545', '#e9ecef'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Initialize progress chart
+            const progressCtx = document.getElementById('progressChart');
+            if (progressCtx) {
+                this.progressChart = new Chart(progressCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Risk Score',
+                            data: [0.6, 0.5, 0.4, 0.35, 0.3, 0.35],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 1
+                            }
+                        }
+                    }
+                });
+            }
+        },
+        
+        updateRiskChart() {
+            if (this.riskChart && this.studentData) {
+                const riskScore = this.studentData.risk_score * 100;
+                this.riskChart.data.datasets[0].data = [riskScore, 100 - riskScore];
+                
+                // Update color based on risk level
+                let color = '#28a745'; // Low risk - green
+                if (this.studentData.risk_category === 'Medium') {
+                    color = '#ffc107'; // Medium risk - yellow
+                } else if (this.studentData.risk_category === 'High') {
+                    color = '#dc3545'; // High risk - red
+                }
+                
+                this.riskChart.data.datasets[0].backgroundColor = [color, '#e9ecef'];
+                this.riskChart.update();
+            }
+        }
+    }
+}).mount('#studentApp');
+</script>
+{% endblock %}

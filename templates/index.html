@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="app">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>AI-powered Dropout Prediction & Counseling System</h1>
+            <p>Empowering educational institutions to proactively identify and support at-risk students, ensuring a brighter future for all.</p>
+            
+            <div class="row justify-content-center mt-4">
+                <div class="col-auto">
+                    <button class="btn btn-custom me-3" @click="showPredictRisk = true">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Predict Risk
+                    </button>
+                </div>
+                {% if current_user.is_authenticated %}
+                <div class="col-auto">
+                    <a href="/dashboard" class="btn btn-outline-light">
+                        <i class="fas fa-user me-2"></i>
+                        Dashboard
+                    </a>
+                </div>
+                {% else %}
+                <div class="col-auto">
+                    <a href="/login" class="btn btn-outline-light">
+                        <i class="fas fa-user me-2"></i>
+                        Student Login
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="/login" class="btn btn-outline-light">
+                        <i class="fas fa-chalkboard-teacher me-2"></i>
+                        Counselor Login
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Statistics -->
+    <section class="py-5" id="analytics">
+        <div class="container">
+            <h2 class="text-center mb-5 text-primary">Live System Statistics</h2>
+            
+            <div class="row" v-if="analytics">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-card">
+                        <div class="stats-number text-primary" v-text="analytics ? analytics.total_students : 0">0</div>
+                        <div class="stats-label">Total Students</div>
+                        <small class="text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +5.2% this week
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-card">
+                        <div class="stats-number text-danger" v-text="analytics ? analytics.high_risk : 0">0</div>
+                        <div class="stats-label">High Risk</div>
+                        <small class="text-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Needs attention
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-card">
+                        <div class="stats-number text-success"><span v-text="analytics ? analytics.success_rate : 0">0</span>%</div>
+                        <div class="stats-label">Success Rate</div>
+                        <small class="text-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +2.1% improvement
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-card">
+                        <div class="stats-number text-info" v-text="analytics ? analytics.active_interventions : 0">0</div>
+                        <div class="stats-label">Active Interventions</div>
+                        <small class="text-info">
+                            <i class="fas fa-clock"></i>
+                            Last 30 days
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Features Section -->
+<section class="features-section" id="about">
+    <div class="container">
+        <h2 class="section-title">Key Features</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3>Predictive Analytics</h3>
+                <p>Our advanced AI model analyzes academic performance, attendance, and socioeconomic factors to predict dropout risk with high accuracy.</p>
+                <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <h3>Personalized Counseling</h3>
+                <p>Tailored recommendations and intervention strategies based on individual student profiles and risk factors.</p>
+                <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-chart-bar"></i>
+                </div>
+                <h3>Actionable Insights</h3>
+                <p>Real-time dashboards and analytics provide clear, actionable insights for educators and administrators.</p>
+                <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Quick Prediction Modal -->
+    <div class="modal fade" :class="{ show: showPredictRisk }" :style="{ display: showPredictRisk ? 'block' : 'none' }" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary">Quick Risk Assessment</h5>
+                    <button type="button" class="btn-close" @click="showPredictRisk = false"></button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="predictRisk">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Age at Enrollment</label>
+                                    <input type="number" class="form-control" v-model="quickPredict.age_at_enrollment" min="16" max="50">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Gender</label>
+                                    <select class="form-select" v-model="quickPredict.gender">
+                                        <option value="0">Female</option>
+                                        <option value="1">Male</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">1st Semester Grade (0-20)</label>
+                                    <input type="number" class="form-control" v-model="quickPredict.curricular_units_1st_sem_grade" min="0" max="20" step="0.1">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">2nd Semester Grade (0-20)</label>
+                                    <input type="number" class="form-control" v-model="quickPredict.curricular_units_2nd_sem_grade" min="0" max="20" step="0.1">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Tuition Fees Up to Date</label>
+                                    <select class="form-select" v-model="quickPredict.tuition_fees_up_to_date">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Scholarship Holder</label>
+                                    <select class="form-select" v-model="quickPredict.scholarship_holder">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Units Approved (1st Sem)</label>
+                                    <input type="number" class="form-control" v-model="quickPredict.curricular_units_1st_sem_approved" min="0" max="10">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Units Approved (2nd Sem)</label>
+                                    <input type="number" class="form-control" v-model="quickPredict.curricular_units_2nd_sem_approved" min="0" max="10">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-custom" :disabled="predicting">
+                                <span v-if="predicting">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>
+                                    Analyzing...
+                                </span>
+                                <span v-else>
+                                    <i class="fas fa-chart-line me-2"></i>
+                                    Predict Risk
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Prediction Result -->
+                    <div v-if="predictionResult" class="mt-4 p-3 border rounded">
+                        <h5>Prediction Result</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Risk Score:</strong> <span v-text="(predictionResult.risk_score * 100).toFixed(1)">0</span>%
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Risk Category:</strong> 
+                                <span :class="getRiskClass(predictionResult.risk_category)" v-text="predictionResult.risk_category">Unknown</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3" v-if="predictionResult.recommendations">
+                            <strong>Recommendations:</strong>
+                            <ul class="mt-2">
+                                <li v-for="rec in predictionResult.recommendations" :key="rec" v-text="rec"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Backdrop -->
+    <div v-if="showPredictRisk" class="modal-backdrop fade show" @click="showPredictRisk = false"></div>
+</div>
+
+<!-- Server data injection -->
+<script id="server-data" type="application/json">
+{% if analytics %}{{ analytics|tojson|safe }}{% else %}null{% endif %}
+</script>
+
+<script>
+
+   // Animation on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    featureCards.forEach(card => {
+        observer.observe(card);
+    });
+});
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            analytics: JSON.parse(document.getElementById('server-data').textContent),
+            showPredictRisk: false,
+            predicting: false,
+            predictionResult: null,
+            quickPredict: {
+                age_at_enrollment: 20,
+                gender: 0,
+                curricular_units_1st_sem_grade: 12,
+                curricular_units_2nd_sem_grade: 12,
+                tuition_fees_up_to_date: 1,
+                scholarship_holder: 0,
+                curricular_units_1st_sem_approved: 5,
+                curricular_units_2nd_sem_approved: 5
+            }
+        }
+    },
+    
+    methods: {
+        
+        async predictRisk() {
+            this.predicting = true;
+            this.predictionResult = null;
+            
+            try {
+                const response = await fetch('/api/predict/quick', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.quickPredict)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.predictionResult = data;
+                } else {
+                    alert('Error: ' + (data.message || 'Prediction failed'));
+                }
+            } catch (error) {
+                console.error('Error predicting risk:', error);
+                alert('Error connecting to server');
+            } finally {
+                this.predicting = false;
+            }
+        },
+        
+        getRiskClass(category) {
+            switch(category) {
+                case 'High': return 'risk-high';
+                case 'Medium': return 'risk-medium';
+                case 'Low': return 'risk-low';
+                default: return '';
+            }
+        }
+    }
+}).mount('#app');
+</script>
+{% endblock %}

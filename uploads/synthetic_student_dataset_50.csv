@@ -1,0 +1,51 @@
+Student ID,Name,Age,Scholarship,Marital status,Application mode,Application order,Course,Daytime/evening attendance,Previous qualification,Nacionality,Mother's qualification,Father's qualification,Mother's occupation,Father's occupation,Displaced,Educational special needs,Debtor,Tuition fees up to date,Gender,Scholarship holder,Age at enrollment,International,Curricular units 1st sem (credited),Curricular units 1st sem (enrolled),Curricular units 1st sem (evaluations),Curricular units 1st sem (approved),Curricular units 1st sem (grade),Curricular units 1st sem (without evaluations),Curricular units 2nd sem (credited),Curricular units 2nd sem (enrolled),Curricular units 2nd sem (evaluations),Curricular units 2nd sem (approved),Curricular units 2nd sem (grade),Curricular units 2nd sem (without evaluations),Unemployment rate,Inflation rate,GDP
+S001,Sarah Jones,23,No,Single,Online,3,Law,Evening,Master,Foreign,None,Master,Unemployed,Self-employed,1,0,0,1,Male,0,34,1,7,1,5,0,16.54,0,1,6,5,2,11.21,2,8.72,0.84,44062.44
+S002,Jane Davis,36,Yes,Single,Referral,1,Arts,Evening,Master,Local,None,High School,Unemployed,Unemployed,0,0,0,1,Male,0,18,1,1,5,7,6,19.18,3,6,9,2,4,9.62,4,3.53,3.26,48345.65
+S003,David Smith,31,No,Single,Referral,5,Law,Daytime,High School,Foreign,Master,High School,Unemployed,Employed,0,1,1,1,Female,0,34,1,9,6,2,1,6.85,4,7,2,6,0,17.7,1,13.23,5.6,6408.6
+S004,Sarah Williams,27,Yes,Single,In-person,1,Medicine,Evening,High School,Local,None,Master,Employed,Unemployed,0,0,0,1,Male,0,31,0,7,5,8,4,4.55,0,0,5,1,0,10.61,0,3.43,1.16,37907.15
+S005,Michael Brown,24,No,Divorced,In-person,3,Law,Daytime,Bachelor,Foreign,Master,None,Unemployed,Employed,1,1,0,0,Female,1,35,1,2,6,2,7,8.47,0,8,3,3,9,8.82,3,6.95,3.77,45928.6
+S006,Jane Wilson,37,Yes,Single,Online,2,Law,Daytime,High School,Local,Master,Master,Self-employed,Self-employed,0,1,1,1,Male,1,18,0,6,6,4,7,5.76,4,6,4,5,8,8.09,3,14.18,0.09,43581.2
+S007,Anna Williams,23,No,Single,Referral,4,Arts,Evening,Bachelor,Foreign,Master,None,Unemployed,Employed,1,0,0,1,Female,0,36,1,2,7,1,2,12.3,2,2,6,4,6,11.45,2,11.82,8.19,48403.42
+S008,Anna Williams,35,Yes,Single,Referral,3,Arts,Daytime,High School,Local,None,None,Unemployed,Employed,0,0,1,1,Female,0,22,0,6,4,5,6,18.24,1,7,8,3,0,16.08,3,6.38,1.28,39204.23
+S009,Michael Jones,39,Yes,Divorced,Referral,1,Engineering,Evening,Bachelor,Foreign,Bachelor,None,Self-employed,Employed,0,1,0,1,Male,1,17,0,1,8,9,2,2.78,3,6,1,5,7,10.77,4,6.03,2.83,24903.44
+S010,John Miller,27,No,Single,Online,4,Engineering,Daytime,Master,Foreign,Master,Master,Unemployed,Employed,1,1,1,1,Male,1,31,0,9,7,1,5,2.02,1,7,8,8,2,13.23,4,3.06,0.18,19037.84
+S011,David Johnson,27,Yes,Single,Online,1,Medicine,Evening,High School,Local,High School,None,Employed,Employed,0,0,1,1,Male,1,39,1,5,9,9,5,5.12,4,5,7,4,7,14.76,2,11.35,4.32,19433.42
+S012,Michael Brown,37,No,Divorced,In-person,1,Engineering,Daytime,High School,Local,None,Bachelor,Employed,Unemployed,0,0,1,1,Male,1,26,1,2,7,8,2,14.52,0,8,1,1,4,10.4,4,3.59,8.4,37599.02
+S013,David Johnson,20,No,Divorced,Online,2,Law,Evening,High School,Foreign,Master,Master,Employed,Employed,1,0,0,1,Female,0,35,1,2,3,6,6,11.86,0,4,2,7,0,8.54,1,9.39,3.92,38562.67
+S014,Emily Davis,24,No,Divorced,Referral,4,Arts,Evening,High School,Local,Master,Bachelor,Self-employed,Employed,0,0,1,1,Male,1,33,1,8,3,7,2,2.04,3,2,3,8,6,17.53,2,14.55,1.79,14016.16
+S015,Laura Smith,19,No,Single,Referral,4,Engineering,Evening,Bachelor,Foreign,High School,None,Unemployed,Self-employed,0,0,0,1,Male,0,21,0,6,8,3,7,18.38,0,2,1,3,4,8.35,1,4.31,7.54,44065.53
+S016,Alex Johnson,38,No,Divorced,Online,2,Engineering,Evening,High School,Local,Bachelor,High School,Employed,Employed,0,1,0,1,Female,1,20,1,4,5,1,9,15.8,0,0,9,6,5,9.24,0,13.73,7.89,37171.58
+S017,Laura Davis,37,No,Divorced,Referral,3,Medicine,Evening,Master,Foreign,Bachelor,None,Self-employed,Self-employed,0,1,0,0,Male,1,26,1,9,4,5,3,0.46,3,7,8,2,5,19.81,1,14.9,1.74,30323.76
+S018,David Jones,18,No,Single,Referral,1,Medicine,Daytime,Master,Foreign,Bachelor,Bachelor,Unemployed,Unemployed,1,1,0,0,Male,1,33,0,6,8,2,0,13.03,3,1,2,7,7,0.0,0,3.74,7.71,26218.96
+S019,John Williams,28,No,Divorced,Online,5,Law,Daytime,High School,Foreign,Master,Bachelor,Self-employed,Employed,1,1,1,1,Male,1,26,0,8,6,5,3,15.42,4,2,9,8,8,3.71,0,13.59,9.47,29445.48
+S020,David Wilson,22,No,Single,Online,1,Arts,Daytime,Master,Foreign,Master,Master,Employed,Self-employed,0,0,1,1,Male,1,33,0,0,2,8,6,7.49,0,7,7,6,1,7.68,1,9.19,1.66,12166.06
+S021,Jane Brown,18,No,Married,Referral,1,Medicine,Evening,High School,Foreign,Master,High School,Employed,Self-employed,1,0,0,0,Male,0,36,1,6,4,9,3,1.38,0,7,9,6,8,18.65,2,13.88,7.71,14166.56
+S022,David Johnson,37,No,Divorced,Referral,3,Engineering,Daytime,High School,Foreign,None,Master,Employed,Unemployed,0,0,0,1,Female,0,21,0,5,4,2,5,1.55,4,3,6,5,9,1.4,4,9.86,7.09,9102.4
+S023,Sarah Smith,17,Yes,Married,Referral,1,Arts,Evening,Master,Local,High School,Bachelor,Self-employed,Employed,1,1,1,0,Male,1,18,0,9,6,3,8,2.08,2,3,6,8,8,0.19,4,10.95,4.74,11914.61
+S024,Laura Wilson,28,Yes,Single,In-person,2,Arts,Evening,High School,Local,Master,None,Self-employed,Employed,0,1,0,0,Male,1,22,0,8,6,3,0,16.81,2,4,4,1,9,1.05,0,9.53,0.58,25416.21
+S025,Sarah Jones,38,No,Divorced,In-person,2,Engineering,Daytime,Master,Local,High School,High School,Employed,Self-employed,0,0,1,0,Male,0,37,1,0,1,1,4,18.21,2,5,2,4,9,1.77,0,13.37,0.75,28865.95
+S026,John Williams,28,No,Single,In-person,4,Medicine,Daytime,Bachelor,Foreign,High School,None,Self-employed,Employed,0,0,0,0,Male,1,18,0,3,8,8,6,2.46,4,4,7,4,6,0.75,2,11.81,8.52,5803.79
+S027,Alex Williams,33,No,Married,Online,5,Engineering,Evening,High School,Foreign,Bachelor,None,Employed,Self-employed,0,1,0,0,Male,1,29,1,8,6,6,0,4.72,0,6,5,3,0,9.6,3,9.26,9.9,40855.9
+S028,David Taylor,26,No,Single,In-person,1,Arts,Daytime,Bachelor,Foreign,None,High School,Employed,Employed,0,1,1,1,Female,0,27,1,3,3,8,3,3.31,4,1,6,3,6,11.62,1,13.42,6.76,18237.56
+S029,Jane Jones,32,No,Divorced,Online,1,Science,Evening,Master,Foreign,Master,Master,Unemployed,Self-employed,0,0,0,0,Male,1,27,0,9,9,9,5,3.73,4,6,2,4,9,5.43,0,5.94,4.46,46032.62
+S030,Michael Miller,31,No,Divorced,Online,3,Science,Evening,Bachelor,Local,Bachelor,None,Self-employed,Employed,1,0,1,1,Female,1,32,0,2,2,5,1,16.75,2,9,5,1,4,7.97,4,4.89,6.48,48538.01
+S031,Sarah Davis,31,No,Married,In-person,2,Law,Evening,Bachelor,Local,Bachelor,Bachelor,Employed,Unemployed,0,1,0,1,Female,0,27,1,8,8,3,9,6.64,1,6,4,2,5,1.83,2,4.92,5.94,13345.65
+S032,Emily Jones,35,No,Single,In-person,5,Engineering,Evening,Master,Foreign,Master,None,Employed,Employed,1,0,0,0,Male,0,35,0,1,3,5,4,6.23,0,0,9,9,9,6.73,1,7.01,3.84,25794.38
+S033,Jane Williams,28,Yes,Divorced,In-person,4,Engineering,Evening,Bachelor,Local,High School,High School,Self-employed,Employed,0,0,0,0,Male,0,31,0,3,5,5,9,4.55,2,6,6,2,6,10.45,2,5.86,0.66,5055.43
+S034,John Smith,39,No,Married,Referral,2,Law,Daytime,Bachelor,Local,Bachelor,High School,Unemployed,Unemployed,1,0,1,1,Male,1,39,1,5,6,5,0,12.16,1,4,2,5,4,14.65,1,14.16,8.22,31924.73
+S035,David Johnson,36,Yes,Divorced,In-person,4,Law,Daytime,Master,Foreign,High School,High School,Unemployed,Employed,1,1,0,0,Male,0,39,1,1,6,3,5,7.59,1,2,1,9,6,0.07,1,4.27,3.72,32328.79
+S036,Chris Wilson,19,No,Divorced,Referral,3,Law,Evening,Bachelor,Local,None,Master,Employed,Unemployed,1,1,0,0,Female,0,32,0,7,4,4,5,14.88,3,2,5,9,8,9.35,0,11.39,8.19,16139.3
+S037,Emily Johnson,21,No,Single,Online,3,Arts,Evening,Master,Foreign,High School,None,Self-employed,Employed,0,1,0,1,Male,0,27,1,7,3,9,3,4.11,0,3,9,8,2,5.94,2,5.27,2.53,30128.57
+S038,Laura Miller,35,Yes,Divorced,Referral,1,Engineering,Daytime,Bachelor,Local,None,Master,Unemployed,Self-employed,0,1,0,1,Male,0,38,0,0,4,9,7,15.76,1,1,6,1,7,17.06,2,13.58,0.01,15149.31
+S039,Anna Taylor,23,No,Single,In-person,5,Arts,Daytime,Master,Foreign,High School,Master,Self-employed,Self-employed,1,1,1,0,Male,0,32,0,2,1,2,3,12.07,2,1,7,1,1,14.31,4,14.54,1.59,12237.15
+S040,Chris Wilson,37,Yes,Divorced,Online,4,Law,Evening,Master,Foreign,Bachelor,High School,Self-employed,Employed,0,1,1,1,Male,0,24,0,9,4,8,7,2.29,3,0,5,9,6,11.78,4,8.59,4.69,34318.38
+S041,David Taylor,25,No,Married,Online,2,Engineering,Daytime,Bachelor,Foreign,Bachelor,High School,Employed,Employed,1,1,0,0,Male,1,20,1,8,1,8,7,8.29,0,4,6,8,1,5.55,0,13.55,9.44,19666.65
+S042,David Williams,23,No,Divorced,Online,3,Arts,Evening,Bachelor,Foreign,None,Master,Unemployed,Employed,0,0,1,0,Male,1,24,0,4,1,7,4,17.27,4,3,5,9,3,18.21,0,3.06,1.02,31561.88
+S043,Anna Jones,34,Yes,Single,Referral,1,Arts,Daytime,Bachelor,Local,Master,None,Employed,Self-employed,1,0,0,0,Female,0,20,0,5,6,8,3,18.46,2,9,9,7,6,0.9,3,12.84,8.54,24496.1
+S044,Michael Garcia,20,No,Single,In-person,1,Law,Evening,High School,Foreign,None,Bachelor,Unemployed,Employed,1,0,0,1,Female,0,19,0,3,5,3,1,9.31,1,1,6,3,2,2.19,4,5.74,5.27,49295.81
+S045,Jane Jones,30,Yes,Married,Online,4,Engineering,Daytime,High School,Foreign,None,Master,Unemployed,Self-employed,0,0,0,1,Male,0,19,1,9,4,6,2,9.62,1,2,8,3,1,7.83,1,13.9,8.26,11731.13
+S046,Emily Miller,34,No,Divorced,Online,3,Law,Evening,High School,Foreign,High School,None,Unemployed,Unemployed,1,0,1,1,Male,1,34,1,1,3,1,2,18.37,2,6,2,2,9,2.49,2,3.01,2.98,25906.94
+S047,Michael Wilson,25,Yes,Divorced,Online,5,Engineering,Daytime,Master,Local,High School,High School,Unemployed,Self-employed,0,0,1,1,Male,1,35,1,7,1,7,3,11.74,1,6,9,5,6,19.13,0,9.67,8.4,35620.55
+S048,Emily Wilson,37,Yes,Married,Referral,3,Science,Daytime,Bachelor,Foreign,None,High School,Unemployed,Self-employed,1,0,1,1,Female,1,35,1,5,6,1,3,0.66,3,3,5,3,0,15.96,2,12.08,7.73,22799.53
+S049,David Taylor,18,No,Divorced,Referral,4,Medicine,Evening,Master,Local,Bachelor,None,Self-employed,Unemployed,1,1,1,0,Male,1,37,1,4,2,9,9,18.25,0,4,7,6,7,5.18,2,6.1,2.3,48861.49
+S050,Emily Wilson,36,No,Divorced,In-person,4,Medicine,Daytime,High School,Foreign,High School,Bachelor,Employed,Self-employed,0,1,1,0,Female,1,21,0,8,8,1,4,4.96,3,4,1,2,2,11.77,3,5.32,1.31,37484.94
